@@ -1,26 +1,39 @@
 {
-  "name": "major-project",
-  "version": "1.0.0",
-  "description": "",
+  "name": "sciblox",
+  "version": "1.6.0",
+  "description": "An offline educational heredity adventure for Android and iOS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test tests/state.test.mjs tests/local-multiplayer.test.mjs tests/three-models.test.mjs tests/station-upgrade.test.mjs tests/i18n.test.mjs tests/guide.test.mjs tests/classroom-coop.test.mjs && playwright test",
     "dev": "vite --host 127.0.0.1",
-    "build": "vite build"
+    "build": "vite build",
+    "android:sync": "npm run build && cap sync android",
+    "android:open": "cap open android",
+    "android:debug": "npm run android:sync && node scripts/android-build.mjs debug",
+    "android:bundle": "npm run android:sync && node scripts/android-build.mjs bundle",
+    "ios:sync": "npm run build && cap sync ios",
+    "ios:open": "cap open ios"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/ios": "^8.5.3",
+    "@capacitor/preferences": "^8.0.1",
     "@tailwindcss/vite": "^4.3.3",
     "lucide-react": "^1.55.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "tailwindcss": "^4.3.3",
+    "three": "^0.186.1",
     "vite": "^8.3.4"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.5.3",
     "@playwright/test": "^1.64.0"
   }
 }

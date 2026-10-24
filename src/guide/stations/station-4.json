@@ -1,0 +1,105 @@
+{
+  "station": 4,
+  "title": {
+    "en": "Family Tree Challenge",
+    "tl": "Hamon sa Puno ng Pamilya"
+  },
+  "scenes": {
+    "intro": [
+      {
+        "id": "welcome",
+        "expression": "wave",
+        "text": {
+          "en": "Welcome! I’m Bhell. This is Station 4: Family Tree Challenge. Read pedigree shapes, shading, and family relationships.",
+          "tl": "Maligayang pagdating! Ako si Bhell. Ito ang Estasyon 4: Hamon sa Puno ng Pamilya. Basahin ang mga hugis, shading, at ugnayan sa pedigree."
+        }
+      },
+      {
+        "id": "directions",
+        "expression": "explain",
+        "text": {
+          "en": "Follow the glowing path to your next activity portal. Read its instructions, explore, and try one step at a time.",
+          "tl": "Sundan ang maliwanag na landas papunta sa portal ng susunod na gawain. Basahin ang mga tagubilin, tuklasin, at subukan nang paisa-isang hakbang."
+        },
+        "hint": {
+          "en": "Read shape and shading separately. Check the legend and trace the connecting lines before deciding.",
+          "tl": "Basahin nang magkahiwalay ang hugis at shading. Suriin ang legend at sundan ang mga linya bago magpasya."
+        }
+      }
+    ],
+    "wrong": [
+      {
+        "id": "try-again",
+        "expression": "think",
+        "text": {
+          "en": "Let’s take another look. A mistake is a chance to investigate. Use this clue, then try again.",
+          "tl": "Tingnan natin muli. Pagkakataon ang pagkakamali upang magsiyasat. Gamitin ang pahiwatig, saka subukang muli."
+        },
+        "hint": {
+          "en": "Read shape and shading separately. Check the legend and trace the connecting lines before deciding.",
+          "tl": "Basahin nang magkahiwalay ang hugis at shading. Suriin ang legend at sundan ang mga linya bago magpasya."
+        }
+      }
+    ],
+    "correct": [
+      {
+        "id": "well-done",
+        "expression": "celebrate",
+        "text": {
+          "en": "Great work! You used your observations and reasoning. Keep exploring your next discovery.",
+          "tl": "Magaling! Ginamit mo ang iyong obserbasyon at pangangatwiran. Ipagpatuloy ang susunod mong pagtuklas."
+        }
+      }
+    ],
+    "idle": [
+      {
+        "id": "nudge",
+        "expression": "encourage",
+        "text": {
+          "en": "Take your time. Try one small step, or ask me for guidance when you are ready.",
+          "tl": "Huwag magmadali. Subukan ang isang maliit na hakbang, o humingi ng gabay kapag handa ka na."
+        },
+        "hint": {
+          "en": "Read shape and shading separately. Check the legend and trace the connecting lines before deciding.",
+          "tl": "Basahin nang magkahiwalay ang hugis at shading. Suriin ang legend at sundan ang mga linya bago magpasya."
+        }
+      }
+    ],
+    "levelUp": [
+      {
+        "id": "level-up",
+        "expression": "celebrate",
+        "text": {
+          "en": "You reached level {level}! Your discoveries are adding up. Keep learning at your own pace.",
+          "tl": "Naabot mo ang level {level}! Dumarami ang iyong mga tuklas. Magpatuloy sa pagkatuto sa sarili mong bilis."
+        }
+      }
+    ],
+    "talk": [
+      {
+        "id": "guidance",
+        "expression": "explain",
+        "text": {
+          "en": "Read pedigree shapes, shading, and family relationships.",
+          "tl": "Basahin ang mga hugis, shading, at ugnayan sa pedigree."
+        },
+        "hint": {
+          "en": "Read shape and shading separately. Check the legend and trace the connecting lines before deciding.",
+          "tl": "Basahin nang magkahiwalay ang hugis at shading. Suriin ang legend at sundan ang mga linya bago magpasya."
+        }
+      },
+      {
+        "id": "encouragement",
+        "expression": "encourage",
+        "text": {
+          "en": "I’m here to help you think it through. Read the activity legend and try again; you can do this.",
+          "tl": "Narito ako upang tulungan kang mag-isip. Basahin ang legend ng gawain at subukang muli; kaya mo ito."
+        },
+        "hint": {
+          "en": "Read shape and shading separately. Check the legend and trace the connecting lines before deciding.",
+          "tl": "Basahin nang magkahiwalay ang hugis at shading. Suriin ang legend at sundan ang mga linya bago magpasya."
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "appId": "com.sciblox.learning",
+  "appName": "SciBlox",
+  "webDir": "dist",
+  "backgroundColor": "#f8faf7",
+  "android": { "allowMixedContent": false },
+  "server": { "androidScheme": "https" }
+}

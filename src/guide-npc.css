@@ -1,0 +1,22 @@
+/* Scoped to the reusable guide; existing menus and StoryDialog stay unchanged. */
+.guide-npc.bhell-dialog{width:min(450px,100%);max-height:100%;padding:10px;overflow:auto;display:flex;flex-direction:column;gap:6px;color:#173f70}
+.guide-npc-body{display:flex;align-items:center;gap:9px;min-height:0}
+.guide-npc .guide-npc-sprite{width:92px;height:132px;flex:0 0 92px;object-fit:contain;align-self:center;filter:drop-shadow(0 3px 2px #245a8425)}
+.guide-npc .guide-npc-bubble{flex:1;min-width:0;padding:8px!important;border:1px solid #a9d8f1!important;border-radius:14px!important;background:#f9fdff!important}
+.guide-npc .guide-captions{max-height:140px;overflow:auto;overflow-wrap:anywhere}
+.guide-npc .guide-captions p{max-height:none!important;overflow:visible!important;min-height:0!important;margin:6px 0!important;font-size:13px!important;line-height:1.45!important}
+.guide-npc .guide-hint{color:#2e5d87;background:#e5f3ff;border-radius:8px;padding:7px;display:flex;align-items:start;gap:5px}
+.guide-npc .guide-hint svg{flex-shrink:0;margin-top:3px}
+.guide-npc .guide-actions{flex-wrap:wrap;flex-shrink:0;align-items:center;margin:0!important}
+.guide-npc .guide-actions button{max-width:100%;min-height:40px!important;margin:0!important}
+.guide-npc .guide-actions .guide-hint-button{margin-right:auto!important;text-align:left}
+.guide-npc .voice-status{display:block;line-height:1.35;color:#486682}
+.guide-npc button:focus-visible{outline:3px solid #e8b64a;outline-offset:2px}
+.guide-npc.guide-motion .guide-npc-sprite{animation:guide-arrive .25s ease-out}
+.guide-npc.guide-still,.guide-npc.guide-still *{animation:none!important;transition:none!important}
+.station-journey-world .guide-shade{z-index:25}
+.station-journey-world.activity-is-open .guide-npc{width:min(360px,34vw)}
+@keyframes guide-arrive{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(orientation:landscape) and (max-height:450px){.guide-npc.bhell-dialog{padding:8px;max-height:100%}.guide-npc .guide-npc-sprite{width:65px;height:102px;flex-basis:65px}.guide-npc .guide-captions{max-height:100px}.guide-npc .guide-captions p{font-size:12px!important}.guide-npc .guide-actions button{min-height:36px!important;padding:7px!important}.guide-npc .speech-controls button{min-height:30px!important}.guide-npc .guide-actions .guide-hint-button{font-size:10px!important}}
+@media(max-width:600px){.station-journey-world.activity-is-open .guide-npc{width:min(450px,100%)}.guide-npc .guide-npc-sprite{width:64px;height:100px;flex-basis:64px}.guide-npc .guide-captions{max-height:120px}}
+@media(prefers-reduced-motion:reduce){.guide-npc,.guide-npc *{animation:none!important;transition:none!important}}

@@ -1,2 +1,2 @@
 import {defineConfig} from '@playwright/test';
-export default defineConfig({testDir:'./tests',workers:1,use:{baseURL:'http://127.0.0.1:5173',launchOptions:{executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',args:['--headless']}}});
+export default defineConfig({webServer:{command:'npm.cmd run dev -- --port 5173 --strictPort',url:'http://127.0.0.1:5173',reuseExistingServer:true,timeout:30000},testDir:'./tests',testMatch:['journey.spec.js','three-world.spec.js','mobile-upgrade.spec.js','guide-npc.spec.js'],timeout:45000,workers:1,use:{baseURL:'http://127.0.0.1:5173',launchOptions:{executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',args:['--headless','--use-angle=swiftshader','--enable-unsafe-swiftshader']}}});

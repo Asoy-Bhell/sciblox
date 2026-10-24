@@ -4,3 +4,26 @@ dist
 test-results
 playwright-report
 reference.txt
+android/local.properties
+android/keystore.properties
+*.jks
+*.keystore
+.gradle
+mobile-preview.png
+.tools/
+artifacts/
+journey-preview.png
+
+# Local configuration, credentials, and temporary exports
+.env
+.env.*
+!.env.example
+*.p12
+*.p8
+*.mobileprovision
+*.log
+tmp/
+output/
+.openai/
+.DS_Store
+Thumbs.db

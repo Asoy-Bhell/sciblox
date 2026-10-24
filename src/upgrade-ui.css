@@ -1,0 +1,26 @@
+/* Approved concept: compact phone controls and consistent responsive tokens. */
+.classroom-screen{max-width:700px;margin:auto}.classroom-role,.classroom-status{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0}.classroom-status{padding:13px;background:#e0f5ff;border:2px solid #9dd8f1;border-radius:16px;color:#194878}.classroom-status span{margin-left:auto;font-size:12px}.classroom-table-wrap{overflow:auto;border-radius:16px;border:2px solid #add4ee;background:#f6fbff;padding:8px}.classroom-table{border-collapse:collapse;width:100%;font-size:13px}.classroom-table td,.classroom-table th{padding:9px 6px;border-bottom:1px solid #cce2f0;text-align:left}.classroom-table th{background:#d6edff}.classroom-player{display:flex;gap:7px;align-items:center;background:none;border:0;color:#173b68;font:inherit;padding:0}.classroom-player .portrait-art{width:35px;height:35px}.classroom-table progress{display:block;width:55px;height:8px;accent-color:#27b06d}.classroom-screen .settings-panel{margin-bottom:16px}.classroom-screen input{width:100%;min-height:44px;margin-top:6px}.classroom-screen h1{font-size:28px}
+.upgraded-profile .portrait-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:340px;margin:auto;width:100%}
+.upgraded-profile .gender-options{display:flex!important;gap:9px;margin-bottom:4px!important}
+.upgraded-profile .gender-options label input{inset:0!important;width:100%!important;height:100%!important;min-height:100%!important;opacity:0;cursor:pointer}
+.upgraded-profile .gender-options label:last-child{flex:1!important;min-height:40px}
+.upgraded-profile .gender-options label:last-child span{border:2px solid #9dbfe4;background:#d8ecff;font-size:13px;padding:9px 7px;color:#173e70}
+.upgraded-profile .gender-options input:checked+span{background:linear-gradient(#139eea,#0865cd)!important;color:white!important}
+.upgraded-profile .avatar-confirmation{display:flex;align-items:center;gap:12px;min-width:0}
+.avatar-confirmation .field-label{flex:1;min-width:0}.upgraded-profile .portrait-art{aspect-ratio:1.25}
+.playing-game .compact-hud{display:flex;align-items:center;gap:7px}
+.icon-control{position:relative;display:grid!important;place-items:center;width:42px;height:42px;min-height:42px!important;padding:8px!important;border:2px solid #95dfff!important;border-radius:13px!important;background:linear-gradient(#2568ae,#143d6c)!important;color:white!important;box-shadow:0 3px #12325266;font-size:12px!important}
+.icon-control svg{width:21px;height:21px;flex-shrink:0}.icon-control .icon-counter{position:absolute;bottom:-4px;right:-6px;background:#fff;color:#174773;border-radius:6px;padding:1px 3px;font-size:9px;font-weight:bold;border:1px solid #89c9ef}
+.icon-control:focus-visible{outline:3px solid #ffd773;outline-offset:2px}
+.playing-game .station-hud-title{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:32vw}
+.world-pov-controls{display:flex;gap:6px;pointer-events:auto}.world3d-camera{display:flex!important;align-items:center;gap:4px}
+.world-npc-button.icon-control{position:absolute;bottom:16px;right:16px;border-radius:50%!important;width:48px;height:48px;min-height:48px!important}
+.world-mission.mission-compact{padding:0;border:0;background:transparent;box-shadow:none;display:flex;align-items:center;gap:8px;top:12px;left:14px}
+.mission-compact .mission-caption{background:#163b68dd;padding:5px 9px;border-radius:8px;font-size:11px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:white}
+.world-activity-tracker summary{display:flex;gap:5px;align-items:center}
+.world-jump{position:absolute;bottom:78px;right:19px;z-index:12;touch-action:manipulation;border-radius:50%!important;width:48px!important;height:48px!important}
+.world-safe-button{position:absolute!important;right:76px;bottom:15px}.playing-game .hunt-controls>div>p{display:none}
+.playing-game .world3d-egg-control{width:46px;min-width:46px;min-height:46px!important;padding:8px!important;border-radius:50%}.playing-game .world3d-egg-control>span:last-child{display:none}
+.playing-game .world3d-eggbar{gap:8px}.playing-game .hunt-hud{font-size:11px;max-width:220px;padding:6px 10px}
+.egg-question .answers button.selected-answer{background:linear-gradient(#249fea,#126ccc)!important;border-color:#69deff!important;color:white!important}.egg-question .egg-submit{margin:10px 8px 0 0}.team-count{display:flex;align-items:center;gap:4px;color:#e2f4ff;font-size:11px}
+@media(max-height:400px){.icon-control{width:36px;height:36px;min-height:36px!important;padding:6px!important}.playing-game .compact-hud{gap:5px}.world-pov-controls .icon-control{width:34px;min-height:34px!important;height:34px}}
