@@ -15,12 +15,12 @@ const unlocked=(data,index)=>index===0||data.completed.includes(index-1);
 const normalizePoint=point=>({x:(point.x+18)/36*100,y:(point.z+18)/36*100});
 const toWorld=player=>({x:(player.x??50)/100*36-18,z:(player.y??72.22)/100*36-18});
 
-export default function JourneyMap3D({stations,completed=[],xp=0,onSelect,motion=true,preview=false,outfit='Explorer',avatar='Human',gender='girl',picture,playerName='Explorer',onTalk,onPosition,remotePlayers=[],activityWorld=false,runId=null,worldTitle='GENETICS WORLD'}){
+export default function JourneyMap3D({stations,completed=[],xp=0,onSelect,motion=true,preview=false,outfit='Explorer',avatar='Human',gender='girl',picture,playerName='Explorer',onTalk,onPosition,remotePlayers=[],activityWorld=false,runId=null,worldTitle='GENETICS WORLD',guideTarget=0}){
  const language=getLanguage();
  const [cameraMode,setCameraMode]=useState('follow'),[nearby,setNearby]=useState(null),[notice,setNotice]=useState('');
  const [pose,setPose]=useState({x:50,y:72.22,walking:false,facing:'up'});
  const latest=useRef({}),control=useRef({direction:{x:0,z:0},keys:new Set(),player:{x:0,z:8},facing:'up'});
- latest.current={stations,completed,xp,onSelect,motion,preview,outfit,avatar,gender,picture,playerName,onTalk,onPosition,remotePlayers,cameraMode,activityWorld,runId,worldTitle};
+ latest.current={stations,completed,xp,onSelect,motion,preview,outfit,avatar,gender,picture,playerName,onTalk,onPosition,remotePlayers,cameraMode,activityWorld,runId,worldTitle,guideTarget};
  const interact=useRef(()=>{});
  const buildScene=useCallback(({scene,camera,renderer,element,THREE})=>{
   const cameraRig=createWorldCameraRig(renderer.domElement);
@@ -143,10 +143,10 @@ export default function JourneyMap3D({stations,completed=[],xp=0,onSelect,motion
    return raycaster.intersectObjects(portalNodes.map(node=>node.target),false)[0]?.object;
   };
   const down=event=>{pointerDown={x:event.clientX,y:event.clientY}};
-  const up=event=>{if(cameraRig.didDrag()||!pointerDown||Math.hypot(event.clientX-pointerDown.x,event.clientY-pointerDown.y)>10)return;pointerDown=null;const target=portalHit(event);if(target)activate(target.userData.station)};
+  const up=event=>{if(cameraRig.didDrag()||!pointerDown||Math.hypot(event.clientX-pointerDown.x,event.clientY-pointerDown.y)>10)return;pointerDown=null;const target=portalHit(event);if(raycaster.intersectObject(guide,true).length)latest.current.onTalk?.();else if(target)activate(target.userData.station)};
   const hover=event=>{if(event.pointerType!=='touch')renderer.domElement.style.cursor=portalHit(event)?'pointer':'default'};
-  const keyDown=event=>{if(document.querySelector('[role="dialog"]'))return;
-   if(latest.current.preview||document.querySelector('[role="dialog"]')||/INPUT|SELECT|TEXTAREA/.test(event.target.tagName))return;
+  const keyDown=event=>{if(document.querySelector('[role="dialog"]:not([data-blocking="false"])'))return;
+   if(latest.current.preview||document.querySelector('[role="dialog"]:not([data-blocking="false"])')||/INPUT|SELECT|TEXTAREA/.test(event.target.tagName))return;
    const key=event.key.toLowerCase();
    if(['arrowup','arrowdown','arrowleft','arrowright','w','a','s','d'].includes(key)){event.preventDefault();state.keys.add(key)}
    if((key==='enter'||key==='e')&&event.target.tagName!=='BUTTON'){event.preventDefault();interact.current()}
@@ -155,7 +155,7 @@ export default function JourneyMap3D({stations,completed=[],xp=0,onSelect,motion
   const release=()=>{state.keys.clear();state.direction={x:0,z:0}};
   if(!latest.current.preview){
    renderer.domElement.addEventListener('pointerdown',down);renderer.domElement.addEventListener('pointerup',up);renderer.domElement.addEventListener('pointermove',hover);
-   window.addEventListener('keydown',keyDown);window.addEventListener('keyup',keyUp);window.addEventListener('blur',release);window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
+   window.addEventListener('keydown',keyDown);window.addEventListener('keyup',keyUp);window.addEventListener('blur',release);
   }
   camera.fov=48;camera.near=.1;camera.far=180;camera.position.set(0,11.5,23.5);camera.lookAt(0,.7,5.5);camera.updateProjectionMatrix();
   const desired=new THREE.Vector3(),look=new THREE.Vector3();
@@ -167,12 +167,16 @@ export default function JourneyMap3D({stations,completed=[],xp=0,onSelect,motion
     const data=latest.current,dt=Math.min(delta,.12);
     let dx=state.direction.x+(state.keys.has('arrowright')||state.keys.has('d')?1:0)-(state.keys.has('arrowleft')||state.keys.has('a')?1:0);
     let dz=state.direction.z+(state.keys.has('arrowdown')||state.keys.has('s')?1:0)-(state.keys.has('arrowup')||state.keys.has('w')?1:0);
-    if(data.preview||document.documentElement.dataset.scibloxPaused==='true'||!!document.querySelector('[role="dialog"]')){dx=0;dz=0;state.keys.clear()}
+    if(data.preview||document.documentElement.dataset.scibloxPaused==='true'||!!document.querySelector('[role="dialog"]:not([data-blocking="false"])')){dx=0;dz=0;state.keys.clear()}
     if(data.cameraMode==='first'){const x=dx;dx=x*Math.cos(cameraRig.yaw)+dz*Math.sin(cameraRig.yaw);dz=dz*Math.cos(cameraRig.yaw)-x*Math.sin(cameraRig.yaw)}
-    const moving=!!(dx||dz),length=Math.hypot(dx,dz)||1;
+    if(Math.hypot(dx,dz)<.08){dx=0;dz=0}const moving=!!(dx||dz),length=Math.max(1,Math.hypot(dx,dz));
     state.player.x=Math.max(-17,Math.min(17,state.player.x+dx/length*6*dt));state.player.z=Math.max(-17,Math.min(17,state.player.z+dz/length*6*dt));
     if(moving)state.facing=Math.abs(dx)>Math.abs(dz)?dx<0?'left':'right':dz<0?'up':'down';
-    const identity=JSON.stringify([data.outfit,data.avatar,data.gender,data.picture,data.playerName]);if(lastOutfit!==identity){scene.remove(explorer);disposeObject(explorer);explorer=playerModel(data);scene.add(explorer);lastOutfit=identity}animateExplorer(guide,{talking:data.motion,facing:'down',time:data.motion?time:0,delta});
+    const identity=JSON.stringify([data.outfit,data.avatar,data.gender,data.picture,data.playerName]);if(lastOutfit!==identity){scene.remove(explorer);disposeObject(explorer);explorer=playerModel(data);scene.add(explorer);lastOutfit=identity}const goal=PORTALS[Math.max(0,data.guideTarget)]||PORTALS[0],gx=goal[0],gz=goal[1]+2.8;
+    const guideDx=gx-guide.position.x,guideDz=gz-guide.position.z,guideDistance=Math.hypot(guideDx,guideDz),guideMoving=data.activityWorld&&guideDistance>.12&&!document.querySelector('[role="dialog"]:not([data-blocking="false"])');
+    if(guideMoving){const step=Math.min(guideDistance,dt*3.2);guide.position.x+=guideDx/guideDistance*step;guide.position.z+=guideDz/guideDistance*step}
+    animateExplorer(guide,{walking:guideMoving&&data.motion,talking:false,facing:guideMoving?Math.abs(guideDx)>Math.abs(guideDz)?guideDx<0?'left':'right':guideDz<0?'up':'down':'down',time:data.motion?time:0,delta});
+    element.dataset.guideTarget=String(data.guideTarget);element.dataset.guideX=String(guide.position.x);element.dataset.guideZ=String(guide.position.z);
     explorer.position.set(state.player.x,cameraRig.height(),state.player.z);explorer.visible=data.cameraMode!=='first';animateExplorer(explorer,{walking:moving&&data.motion,facing:state.facing,talking:false,time:data.motion?time:0,delta});
     playerMarker.position.set(state.player.x,.07,state.player.z);playerMarker.rotation.y=Math.PI/4;
     animatePet(pet,{time:data.motion?time:0,happy:false});dna.rotation.y=data.motion?time*.3:0;
@@ -196,7 +200,7 @@ export default function JourneyMap3D({stations,completed=[],xp=0,onSelect,motion
    },
    dispose(){
     cameraRig.dispose();renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointermove',hover);
-    window.removeEventListener('keydown',keyDown);window.removeEventListener('keyup',keyUp);window.removeEventListener('blur',release);window.removeEventListener('pointerup',release);window.removeEventListener('pointercancel',release);release();
+    window.removeEventListener('keydown',keyDown);window.removeEventListener('keyup',keyUp);window.removeEventListener('blur',release);release();
    }
   };
  },[preview,completed.join(','),xp,stations.length,runId,language]);

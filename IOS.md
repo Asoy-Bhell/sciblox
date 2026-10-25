@@ -54,3 +54,7 @@ opening public router ports is unnecessary.
 References: [Capacitor iOS](https://capacitorjs.com/docs/ios),
 [native plugin registration](https://capacitorjs.com/docs/ios/custom-code), and
 [privacy manifests](https://capacitorjs.com/docs/ios/privacy-manifest).
+
+## Version 1.6.2 source update
+
+The iOS Narrator bridge includes local MP3 queue playback and the shared 1.05× narration pace. The source version is 1.6.2 (build 9). Bundled Tagalog assets carry separate CC BY-NC 4.0 attribution in public/assets/bhell/audio/README.md. Asset sync does not establish a successful Xcode build or physical-device playback test; those remain pending on macOS.

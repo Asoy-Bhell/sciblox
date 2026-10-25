@@ -74,8 +74,8 @@ function SortActivity({definition, onDone, onFail}) {
 }
 
 function DiscoveryActivity({definition, onDone}) {
-  const [seen, setSeen] = useState([]);
-  return <><div className="prep-discoveries">{t(definition.cards.map(card=><article className="prep-discovery" key={card.id}><button type="button" className={'prep-card '+(seen.includes(card.id)?'selected':'')} aria-expanded={seen.includes(card.id)} onClick={()=>setSeen(current=>current.includes(card.id)?current:[...current,card.id])}><span aria-hidden="true">{t(card.icon)}</span>{t(card.label)}{t(seen.includes(card.id)&&<small>{t("Inspected ✓")}</small>)}</button>{t(seen.includes(card.id)&&<p>{t(card.text)}</p>)}</article>))}</div><p className="prep-selection" role="status">{t(seen.length)}{t(" of ")}{t(definition.cards.length)}{t(" discoveries inspected")}</p><button type="button" className="primary" disabled={seen.length!==definition.cards.length} onClick={onDone}>{t("Save my discoveries ")}<Check size={17}/></button></>;
+ const [seen,setSeen]=useState([]),[active,setActive]=useState(null);
+ return <><div className="prep-discoveries">{definition.cards.map(card=><article className="prep-discovery" key={card.id}><button type="button" className={'prep-card '+(active===card.id?'selected':'')} aria-pressed={active===card.id} onClick={()=>{setActive(card.id);setSeen(current=>current.includes(card.id)?current:[...current,card.id])}}><span aria-hidden="true">{card.icon}</span>{t(card.label)}{seen.includes(card.id)&&<small>{t('Inspected ✓')}</small>}</button></article>)}</div>{active&&<p className="prep-discovery-detail" aria-live="polite">{t(definition.cards.find(card=>card.id===active).text)}</p>}<p className="prep-selection" role="status">{seen.length}{t(' of ')}{definition.cards.length}{t(' discoveries inspected')}</p><button type="button" className="primary" disabled={seen.length!==definition.cards.length} onClick={onDone}>{t('Save my discoveries ')}<Check size={17}/></button></>;
 }
 
 function QuizActivity({definition, onDone, onFail, onProgress}) {
@@ -220,7 +220,7 @@ function ActivityShell({station, definition, onComplete, onWrong, onCorrect}) {
   const onFail = message => {
     if(completed.current) return;
     setFeedback(message);
-    onWrong?.();
+    onWrong?.(message);
   };
   const props={definition,onDone,onFail,onProgress:message=>{setFeedback(message);onCorrect?.()}};
   const content = {

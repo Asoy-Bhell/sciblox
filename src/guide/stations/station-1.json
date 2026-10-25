@@ -101,5 +101,186 @@
         }
       }
     ]
+  },
+  "variants": {
+    "wrong": [
+      {
+        "id": "check-evidence",
+        "expression": "think",
+        "text": {
+          "en": "Check the trait evidence before trying again. Which detail needs another look?",
+          "tl": "Suriin ang ebidensya ng mga katangian bago subukang muli. Aling detalye ang dapat tingnan?"
+        }
+      },
+      {
+        "id": "try-one-step",
+        "expression": "think",
+        "text": {
+          "en": "Work through one step first. Use the clue below to test your reasoning.",
+          "tl": "Unahin ang isang hakbang. Gamitin ang pahiwatig upang suriin ang iyong pangangatwiran."
+        }
+      },
+      {
+        "id": "compare-clues",
+        "expression": "explain",
+        "text": {
+          "en": "Compare your choice with the trait evidence. Look for a detail that supports it.",
+          "tl": "Ihambing ang napili sa ebidensya ng mga katangian. Hanapin ang detalyeng sumusuporta rito."
+        }
+      },
+      {
+        "id": "revise-step",
+        "expression": "encourage",
+        "text": {
+          "en": "You can revise this step. Read the clue and make a new decision.",
+          "tl": "Maaari mong baguhin ang hakbang na ito. Basahin ang pahiwatig at magpasya muli."
+        }
+      }
+    ],
+    "correct": [
+      {
+        "id": "evidence-check",
+        "expression": "celebrate",
+        "text": {
+          "en": "Your reasoning fits the trait evidence. That step is complete.",
+          "tl": "Tugma ang iyong pangangatwiran sa ebidensya ng mga katangian. Tapos na ang hakbang na iyon."
+        }
+      },
+      {
+        "id": "connection-made",
+        "expression": "celebrate",
+        "text": {
+          "en": "You connected the clues. Use that idea in your next task.",
+          "tl": "Naiugnay mo ang mga palatandaan. Gamitin ang ideyang iyon sa susunod na gawain."
+        }
+      },
+      {
+        "id": "progress-saved",
+        "expression": "celebrate",
+        "text": {
+          "en": "Another discovery saved. You are ready for the next step.",
+          "tl": "Naka-save ang isa pang natuklasan. Handa ka na sa susunod na hakbang."
+        }
+      },
+      {
+        "id": "careful-observation",
+        "expression": "celebrate",
+        "text": {
+          "en": "Careful observation paid off. Keep building on what you found.",
+          "tl": "Nakatulong ang maingat na pagmamasid. Ipagpatuloy ang pagbuo ng iyong mga natuklasan."
+        }
+      }
+    ],
+    "idle": [
+      {
+        "id": "next-small-step",
+        "expression": "encourage",
+        "text": {
+          "en": "Need a starting point? Inspect the trait evidence, or tap my speech icon for directions.",
+          "tl": "Kailangan ng panimulang hakbang? Suriin ang ebidensya ng mga katangian, o pindutin ang aking speech icon para sa gabay."
+        }
+      },
+      {
+        "id": "look-for-goal",
+        "expression": "explain",
+        "text": {
+          "en": "The next activity portal is your goal. I will guide you there.",
+          "tl": "Ang portal ng susunod na gawain ang iyong pupuntahan. Gagabayan kita roon."
+        }
+      }
+    ],
+    "talk": [
+      {
+        "id": "task-help",
+        "expression": "explain",
+        "text": {
+          "en": "Use the trait evidence to decide your next step.",
+          "tl": "Gamitin ang ebidensya ng mga katangian sa pagpapasya sa susunod na hakbang."
+        }
+      }
+    ]
+  },
+  "activities": {
+    "trait-explorer": {
+      "title": {
+        "en": "Trait Explorer",
+        "tl": "Tagatuklas ng Katangian"
+      },
+      "instructions": {
+        "en": "Trait Explorer: Tap each object to inspect its evidence, then save your discoveries.",
+        "tl": "Tagatuklas ng Katangian: Pindutin ang bawat bagay upang siyasatin ang ebidensya, saka i-save ang mga natuklasan."
+      },
+      "hint": {
+        "en": "Ask whether the characteristic comes from inherited information or from practice and experience.",
+        "tl": "Isipin kung ang katangian ay mula sa namamanang impormasyon o sa pagsasanay at karanasan."
+      },
+      "hints": {
+        "Ask whether the characteristic comes from inherited information or from practice and experience.": "Isipin kung ang katangian ay mula sa namamanang impormasyon o sa pagsasanay at karanasan."
+      }
+    },
+    "trait-portals": {
+      "title": {
+        "en": "Inherited or Acquired?",
+        "tl": "Namamana o Natututuhan?"
+      },
+      "instructions": {
+        "en": "Inherited or Acquired?: Select a card, then place it in the matching group. Check your groups when ready.",
+        "tl": "Namamana o Natututuhan?: Pumili ng card at ilagay ito sa angkop na grupo. Suriin ang mga grupo kapag handa na."
+      },
+      "hint": {
+        "en": "Ask whether genes passed from parents influence the characteristic, or whether it develops through learning or experience.",
+        "tl": "Isipin kung naiimpluwensiyahan ng mga minanang gene ang katangian o nabubuo ito sa pagkatuto at karanasan."
+      },
+      "hints": {
+        "Ask whether genes passed from parents influence the characteristic, or whether it develops through learning or experience.": "Isipin kung naiimpluwensiyahan ng mga minanang gene ang katangian o nabubuo ito sa pagkatuto at karanasan."
+      }
+    },
+    "dominance-bridges": {
+      "title": {
+        "en": "Dominant–Recessive Bridge",
+        "tl": "Tulay ng Dominante at Resesibo"
+      },
+      "instructions": {
+        "en": "Dominant–Recessive Bridge: Select a card, then place it in the matching group. Check your groups when ready.",
+        "tl": "Tulay ng Dominante at Resesibo: Pumili ng card at ilagay ito sa angkop na grupo. Suriin ang mga grupo kapag handa na."
+      },
+      "hint": {
+        "en": "A capital letter represents a dominant allele. A recessive phenotype needs two recessive copies.",
+        "tl": "Kinakatawan ng malaking titik ang dominanteng allele. Kailangan ng dalawang resesibong kopya upang maipakita ang resesibong phenotype."
+      },
+      "hints": {
+        "A capital letter represents a dominant allele. A recessive phenotype needs two recessive copies.": "Kinakatawan ng malaking titik ang dominanteng allele. Kailangan ng dalawang resesibong kopya upang maipakita ang resesibong phenotype."
+      }
+    },
+    "trait-guardian": {
+      "title": {
+        "en": "Gene Guardian Terminal",
+        "tl": "Terminal ng Tagapagbantay ng Gene"
+      },
+      "instructions": {
+        "en": "Gene Guardian Terminal: Read the question and use the evidence from this activity before choosing.",
+        "tl": "Terminal ng Tagapagbantay ng Gene: Basahin ang tanong at gamitin ang ebidensya ng gawain bago pumili."
+      },
+      "hint": {
+        "en": "Ask whether the characteristic comes from inherited information or from practice and experience.",
+        "tl": "Isipin kung ang katangian ay mula sa namamanang impormasyon o sa pagsasanay at karanasan."
+      },
+      "hints": {
+        "Ask whether the characteristic comes from inherited information or from practice and experience.": "Isipin kung ang katangian ay mula sa namamanang impormasyon o sa pagsasanay at karanasan.",
+        "Think about a characteristic developed through practice.": "Isipin ang katangiang nabubuo sa pagsasanay.",
+        "Each parent makes a genetic contribution.": "May ambag na henetiko ang bawat magulang.",
+        "A dominant allele can be expressed when the other allele is recessive.": "Maaaring maipakita ang dominanteng allele kahit resesibo ang kasama nitong allele."
+      }
+    },
+    "finale": {
+      "instructions": {
+        "en": "Find the remaining eggs. Read each question before selecting and submitting an answer. Return to camp if a guardian follows you.",
+        "tl": "Hanapin ang natitirang itlog. Basahin ang tanong bago pumili at magsumite ng sagot. Bumalik sa kampo kapag may sumunod na tagapagbantay."
+      },
+      "hint": {
+        "en": "Ask whether the characteristic comes from inherited information or from practice and experience.",
+        "tl": "Isipin kung ang katangian ay mula sa namamanang impormasyon o sa pagsasanay at karanasan."
+      }
+    }
   }
 }

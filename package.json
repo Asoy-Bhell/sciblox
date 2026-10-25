@@ -1,10 +1,10 @@
 {
   "name": "sciblox",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "An offline educational heredity adventure for Android and iOS",
   "main": "index.js",
   "scripts": {
-    "test": "node --test tests/state.test.mjs tests/local-multiplayer.test.mjs tests/three-models.test.mjs tests/station-upgrade.test.mjs tests/i18n.test.mjs tests/guide.test.mjs tests/classroom-coop.test.mjs tests/camera-stability.test.mjs && playwright test",
+    "test": "node --test tests/state.test.mjs tests/local-multiplayer.test.mjs tests/three-models.test.mjs tests/station-upgrade.test.mjs tests/i18n.test.mjs tests/guide.test.mjs tests/classroom-coop.test.mjs tests/camera-stability.test.mjs tests/bundled-narration.test.mjs && playwright test",
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "android:sync": "npm run build && cap sync android",

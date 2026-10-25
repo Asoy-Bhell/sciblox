@@ -18,15 +18,25 @@ export function localizeGuide(value,language='en',variables={}){
   const text=typeof value==='string'?value:value?.[language]||value?.en||'';
   return text.replace(/\{(\w+)\}/g,(match,key)=>variables[key]===undefined?match:String(variables[key]));
 }
-export function getGuideScenes(station,trigger){
-  return (stationDialogues[station]||stationDialogues[0]).scenes[trigger]||[];
+export function getGuideScenes(station,trigger,context){
+  const data=stationDialogues[station]||stationDialogues[0];
+  if(!context)return data.scenes[trigger]||[];
+  const activity=data.activities?.[context.activityId];
+  const variants=data.variants?.[trigger],variant=variants?.[(context.variant||0)%variants.length];
+  const scenes=variant?[variant]:(data.scenes[trigger]||[]);
+  const hint=activity?.hint||data.scenes.wrong?.[0]?.hint;
+  if(trigger==='talk'&&context.chasing)return [{id:'return-to-camp',expression:'encourage',text:{en:'Return to camp using the house control or your joystick. Your collected eggs stay safe. Then retry the unanswered egg.',tl:'Bumalik sa kampo gamit ang bahay o joystick. Ligtas ang mga nakuhang itlog. Pagkatapos, subukan muli ang hindi pa nasasagutang itlog.'}}];
+  if(trigger==='talk'&&activity)return [{id:'help-'+context.activityId,expression:'explain',text:activity.instructions,hint}];
+  return scenes.map((scene,index)=>({...scene,id:scene.id+'-'+(context.variant||0),
+    ...(trigger==='intro'&&index===1&&activity?{text:activity.instructions}:{}),
+    ...(['wrong','idle'].includes(trigger)?{hint:context.hint?{en:context.hint,tl:activity?.hints?.[context.hint]||hint?.tl}:hint}:{})}));
 }
 // Observe accepted state transitions, not button clicks: rejected or repeated
 // network actions must not earn duplicate celebrations or expose test answers.
 export function guideProgress(state){
   const run=state.run;
   return {runId:run?.id,wrong:run?.wrong||0,completed:run?.completedActivities?.length||0,
-    eggs:run?.collected?.length||0,round:run?.round||0,level:levelForXP(state.xp)};
+    eggs:run?.collected?.length||0,round:run?.round||0,activity:run?.activeActivity,level:levelForXP(state.xp)};
 }
 export function progressTriggers(before,after){
   if(!before||before.runId!==after.runId)return [];

@@ -101,5 +101,168 @@
         }
       }
     ]
+  },
+  "variants": {
+    "wrong": [
+      {
+        "id": "check-evidence",
+        "expression": "think",
+        "text": {
+          "en": "Check the parent gametes before trying again. Which detail needs another look?",
+          "tl": "Suriin ang mga gamete ng magulang bago subukang muli. Aling detalye ang dapat tingnan?"
+        }
+      },
+      {
+        "id": "try-one-step",
+        "expression": "think",
+        "text": {
+          "en": "Work through one step first. Use the clue below to test your reasoning.",
+          "tl": "Unahin ang isang hakbang. Gamitin ang pahiwatig upang suriin ang iyong pangangatwiran."
+        }
+      },
+      {
+        "id": "compare-clues",
+        "expression": "explain",
+        "text": {
+          "en": "Compare your choice with the parent gametes. Look for a detail that supports it.",
+          "tl": "Ihambing ang napili sa mga gamete ng magulang. Hanapin ang detalyeng sumusuporta rito."
+        }
+      },
+      {
+        "id": "revise-step",
+        "expression": "encourage",
+        "text": {
+          "en": "You can revise this step. Read the clue and make a new decision.",
+          "tl": "Maaari mong baguhin ang hakbang na ito. Basahin ang pahiwatig at magpasya muli."
+        }
+      }
+    ],
+    "correct": [
+      {
+        "id": "evidence-check",
+        "expression": "celebrate",
+        "text": {
+          "en": "Your reasoning fits the parent gametes. That step is complete.",
+          "tl": "Tugma ang iyong pangangatwiran sa mga gamete ng magulang. Tapos na ang hakbang na iyon."
+        }
+      },
+      {
+        "id": "connection-made",
+        "expression": "celebrate",
+        "text": {
+          "en": "You connected the clues. Use that idea in your next task.",
+          "tl": "Naiugnay mo ang mga palatandaan. Gamitin ang ideyang iyon sa susunod na gawain."
+        }
+      },
+      {
+        "id": "progress-saved",
+        "expression": "celebrate",
+        "text": {
+          "en": "Another discovery saved. You are ready for the next step.",
+          "tl": "Naka-save ang isa pang natuklasan. Handa ka na sa susunod na hakbang."
+        }
+      },
+      {
+        "id": "careful-observation",
+        "expression": "celebrate",
+        "text": {
+          "en": "Careful observation paid off. Keep building on what you found.",
+          "tl": "Nakatulong ang maingat na pagmamasid. Ipagpatuloy ang pagbuo ng iyong mga natuklasan."
+        }
+      }
+    ],
+    "idle": [
+      {
+        "id": "next-small-step",
+        "expression": "encourage",
+        "text": {
+          "en": "Need a starting point? Inspect the parent gametes, or tap my speech icon for directions.",
+          "tl": "Kailangan ng panimulang hakbang? Suriin ang mga gamete ng magulang, o pindutin ang aking speech icon para sa gabay."
+        }
+      },
+      {
+        "id": "look-for-goal",
+        "expression": "explain",
+        "text": {
+          "en": "The next activity portal is your goal. I will guide you there.",
+          "tl": "Ang portal ng susunod na gawain ang iyong pupuntahan. Gagabayan kita roon."
+        }
+      }
+    ],
+    "talk": [
+      {
+        "id": "task-help",
+        "expression": "explain",
+        "text": {
+          "en": "Use the parent gametes to decide your next step.",
+          "tl": "Gamitin ang mga gamete ng magulang sa pagpapasya sa susunod na hakbang."
+        }
+      }
+    ]
+  },
+  "activities": {
+    "parent-headers": {
+      "title": {
+        "en": "Place the Parent Allele Headers",
+        "tl": "Ilagay ang mga Heading ng Allele ng Magulang"
+      },
+      "instructions": {
+        "en": "Place the Parent Allele Headers: Choose one parental allele for each header, then check the arrangement.",
+        "tl": "Ilagay ang mga Heading ng Allele ng Magulang: Pumili ng allele ng magulang para sa bawat header, saka suriin ang pagkakaayos."
+      },
+      "hint": {
+        "en": "Check the parent headers. Each inner box combines one allele from its row and one from its column.",
+        "tl": "Suriin ang mga allele ng magulang sa mga header. Ang bawat kahon ay pinagsasamang allele mula sa row at column nito."
+      },
+      "hints": {
+        "Check the parent headers. Each inner box combines one allele from its row and one from its column.": "Suriin ang mga allele ng magulang sa mga header. Ang bawat kahon ay pinagsasamang allele mula sa row at column nito."
+      }
+    },
+    "gamete-sort": {
+      "title": {
+        "en": "Gamete Sorting Bench",
+        "tl": "Paghihiwalay ng mga Gamete"
+      },
+      "instructions": {
+        "en": "Gamete Sorting Bench: Select a card, then place it in the matching group. Check your groups when ready.",
+        "tl": "Paghihiwalay ng mga Gamete: Pumili ng card at ilagay ito sa angkop na grupo. Suriin ang mga grupo kapag handa na."
+      },
+      "hint": {
+        "en": "A parent can contribute only an allele it carries. A gamete has one allele here, rather than a whole pair.",
+        "tl": "Makapagbibigay lamang ang magulang ng allele na dala nito. Isang allele lamang ang nasa gamete rito, hindi isang buong pares."
+      },
+      "hints": {
+        "A parent can contribute only an allele it carries. A gamete has one allele here, rather than a whole pair.": "Makapagbibigay lamang ang magulang ng allele na dala nito. Isang allele lamang ang nasa gamete rito, hindi isang buong pares."
+      }
+    },
+    "combine-alleles": {
+      "title": {
+        "en": "Combine the Alleles",
+        "tl": "Pagsamahin ang mga Allele"
+      },
+      "instructions": {
+        "en": "Combine the Alleles: Read the question and use the evidence from this activity before choosing.",
+        "tl": "Pagsamahin ang mga Allele: Basahin ang tanong at gamitin ang ebidensya ng gawain bago pumili."
+      },
+      "hint": {
+        "en": "Check the parent headers. Each inner box combines one allele from its row and one from its column.",
+        "tl": "Suriin ang mga allele ng magulang sa mga header. Ang bawat kahon ay pinagsasamang allele mula sa row at column nito."
+      },
+      "hints": {
+        "Check the parent headers. Each inner box combines one allele from its row and one from its column.": "Suriin ang mga allele ng magulang sa mga header. Ang bawat kahon ay pinagsasamang allele mula sa row at column nito.",
+        "Keep both contributed alleles and write the capital letter first.": "Panatilihin ang parehong ibinigay na allele at unahin ang malaking titik.",
+        "The headers describe parent gametes; the inner boxes combine them.": "Inilalarawan ng mga heading ang gamete ng magulang; pinagsasama ang mga ito sa mga panloob na kahon."
+      }
+    },
+    "finale": {
+      "instructions": {
+        "en": "Use one allele from each parent for every offspring box. Count the outcomes, then check the round.",
+        "tl": "Gumamit ng tig-isang allele mula sa bawat magulang sa bawat kahon. Bilangin ang mga resulta, saka suriin ang yugto."
+      },
+      "hint": {
+        "en": "Check the parent headers. Each inner box combines one allele from its row and one from its column.",
+        "tl": "Suriin ang mga allele ng magulang sa mga header. Ang bawat kahon ay pinagsasamang allele mula sa row at column nito."
+      }
+    }
   }
 }

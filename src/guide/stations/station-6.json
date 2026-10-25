@@ -101,5 +101,166 @@
         }
       }
     ]
+  },
+  "variants": {
+    "wrong": [
+      {
+        "id": "check-evidence",
+        "expression": "think",
+        "text": {
+          "en": "Check the genotype and phenotype counts before trying again. Which detail needs another look?",
+          "tl": "Suriin ang bilang ng genotype at phenotype bago subukang muli. Aling detalye ang dapat tingnan?"
+        }
+      },
+      {
+        "id": "try-one-step",
+        "expression": "think",
+        "text": {
+          "en": "Work through one step first. Use the clue below to test your reasoning.",
+          "tl": "Unahin ang isang hakbang. Gamitin ang pahiwatig upang suriin ang iyong pangangatwiran."
+        }
+      },
+      {
+        "id": "compare-clues",
+        "expression": "explain",
+        "text": {
+          "en": "Compare your choice with the genotype and phenotype counts. Look for a detail that supports it.",
+          "tl": "Ihambing ang napili sa bilang ng genotype at phenotype. Hanapin ang detalyeng sumusuporta rito."
+        }
+      },
+      {
+        "id": "revise-step",
+        "expression": "encourage",
+        "text": {
+          "en": "You can revise this step. Read the clue and make a new decision.",
+          "tl": "Maaari mong baguhin ang hakbang na ito. Basahin ang pahiwatig at magpasya muli."
+        }
+      }
+    ],
+    "correct": [
+      {
+        "id": "evidence-check",
+        "expression": "celebrate",
+        "text": {
+          "en": "Your reasoning fits the genotype and phenotype counts. That step is complete.",
+          "tl": "Tugma ang iyong pangangatwiran sa bilang ng genotype at phenotype. Tapos na ang hakbang na iyon."
+        }
+      },
+      {
+        "id": "connection-made",
+        "expression": "celebrate",
+        "text": {
+          "en": "You connected the clues. Use that idea in your next task.",
+          "tl": "Naiugnay mo ang mga palatandaan. Gamitin ang ideyang iyon sa susunod na gawain."
+        }
+      },
+      {
+        "id": "progress-saved",
+        "expression": "celebrate",
+        "text": {
+          "en": "Another discovery saved. You are ready for the next step.",
+          "tl": "Naka-save ang isa pang natuklasan. Handa ka na sa susunod na hakbang."
+        }
+      },
+      {
+        "id": "careful-observation",
+        "expression": "celebrate",
+        "text": {
+          "en": "Careful observation paid off. Keep building on what you found.",
+          "tl": "Nakatulong ang maingat na pagmamasid. Ipagpatuloy ang pagbuo ng iyong mga natuklasan."
+        }
+      }
+    ],
+    "idle": [
+      {
+        "id": "next-small-step",
+        "expression": "encourage",
+        "text": {
+          "en": "Need a starting point? Inspect the genotype and phenotype counts, or tap my speech icon for directions.",
+          "tl": "Kailangan ng panimulang hakbang? Suriin ang bilang ng genotype at phenotype, o pindutin ang aking speech icon para sa gabay."
+        }
+      },
+      {
+        "id": "look-for-goal",
+        "expression": "explain",
+        "text": {
+          "en": "The next activity portal is your goal. I will guide you there.",
+          "tl": "Ang portal ng susunod na gawain ang iyong pupuntahan. Gagabayan kita roon."
+        }
+      }
+    ],
+    "talk": [
+      {
+        "id": "task-help",
+        "expression": "explain",
+        "text": {
+          "en": "Use the genotype and phenotype counts to decide your next step.",
+          "tl": "Gamitin ang bilang ng genotype at phenotype sa pagpapasya sa susunod na hakbang."
+        }
+      }
+    ]
+  },
+  "activities": {
+    "genotype-counts": {
+      "title": {
+        "en": "Genotype Counting Table",
+        "tl": "Talaan ng Bilang ng Genotype"
+      },
+      "instructions": {
+        "en": "Genotype Counting Table: Count the displayed outcomes before entering your numbers.",
+        "tl": "Talaan ng Bilang ng Genotype: Bilangin muna ang ipinapakitang resulta bago ilagay ang mga numero."
+      },
+      "hint": {
+        "en": "Count each box once. Keep BB, Bb, and bb in separate groups; the three counts must total four.",
+        "tl": "Isang beses lamang bilangin ang bawat kahon. Ihiwalay ang BB, Bb, at bb; dapat apat ang kabuuan ng tatlong bilang."
+      },
+      "hints": {
+        "Count each box once. Keep BB, Bb, and bb in separate groups; the three counts must total four.": "Isang beses lamang bilangin ang bawat kahon. Ihiwalay ang BB, Bb, at bb; dapat apat ang kabuuan ng tatlong bilang."
+      }
+    },
+    "phenotype-counts": {
+      "title": {
+        "en": "Phenotype Sorting Table",
+        "tl": "Paghihiwalay ng mga Phenotype"
+      },
+      "instructions": {
+        "en": "Phenotype Sorting Table: Select a card, then place it in the matching group. Check your groups when ready.",
+        "tl": "Paghihiwalay ng mga Phenotype: Pumili ng card at ilagay ito sa angkop na grupo. Suriin ang mga grupo kapag handa na."
+      },
+      "hint": {
+        "en": "Genotype is the allele pair; phenotype is what it expresses. The dominant group can contain more than one genotype.",
+        "tl": "Ang genotype ay pares ng allele; ang phenotype ay katangiang naipapakita. Maaaring may higit sa isang genotype sa dominanteng pangkat."
+      },
+      "hints": {
+        "Genotype is the allele pair; phenotype is what it expresses. The dominant group can contain more than one genotype.": "Ang genotype ay pares ng allele; ang phenotype ay katangiang naipapakita. Maaaring may higit sa isang genotype sa dominanteng pangkat."
+      }
+    },
+    "phenotype-count-check": {
+      "title": {
+        "en": "Compare Genotype and Phenotype",
+        "tl": "Ihambing ang Genotype at Phenotype"
+      },
+      "instructions": {
+        "en": "Compare Genotype and Phenotype: Count the displayed outcomes before entering your numbers.",
+        "tl": "Ihambing ang Genotype at Phenotype: Bilangin muna ang ipinapakitang resulta bago ilagay ang mga numero."
+      },
+      "hint": {
+        "en": "Combine all genotypes that express the dominant phenotype. Count only two-recessive-allele boxes as recessive.",
+        "tl": "Pagsamahin ang lahat ng genotype na nagpapakita ng dominanteng phenotype. Resesibo lamang ang kahong may dalawang resesibong allele."
+      },
+      "hints": {
+        "Combine all genotypes that express the dominant phenotype. Count only two-recessive-allele boxes as recessive.": "Pagsamahin ang lahat ng genotype na nagpapakita ng dominanteng phenotype. Resesibo lamang ang kahong may dalawang resesibong allele."
+      }
+    },
+    "finale": {
+      "instructions": {
+        "en": "Use one allele from each parent for every offspring box. Count the outcomes, then check the round.",
+        "tl": "Gumamit ng tig-isang allele mula sa bawat magulang sa bawat kahon. Bilangin ang mga resulta, saka suriin ang yugto."
+      },
+      "hint": {
+        "en": "First identify the allele pair, then apply the model’s dominance rule. Genotype and phenotype describe different things.",
+        "tl": "Tukuyin muna ang pares ng allele, saka gamitin ang tuntunin ng dominance sa modelo. Magkaiba ang genotype at phenotype."
+      }
+    }
   }
 }

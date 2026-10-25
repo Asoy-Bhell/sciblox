@@ -2,6 +2,7 @@ import {useCallback,useEffect,useRef,useState} from 'react';
 import {Narrator} from '../narrator';
 import {nativeMobile} from '../mobile';
 import {BHELL_MEDIA,localMedia} from '../scene-media';
+import {bundledNarration} from './bundled-narration';
 
 const unavailable={en:'Offline voice is unavailable on this device. Follow Bhell’s captions.',tl:'Walang offline na boses sa device na ito. Sundan ang mga caption ni Bhell.'};
 
@@ -38,10 +39,13 @@ export default function useOfflineNarration({sound=true,language='en',sceneKey,v
     const id=request.current,valid=()=>mounted.current&&request.current===id;
     const fail=()=>{if(valid()){setSpeaking(false);setStatus(unavailable[language]||unavailable.en)}};
     const recording=localMedia(BHELL_MEDIA.dialogue[text]);
-    if(recording){
-      const player=new Audio(recording);audio.current=player;
-      player.onended=()=>{if(valid())setSpeaking(false)};player.onerror=fail;
-      try{await player.play();if(valid())setSpeaking(true);else player.pause();return}catch{if(!valid())return}
+    const paths=recording?[recording]:!voiceName||voiceName==='bundled-tl'?bundledNarration(text,language):[];
+    if(paths.length){
+      if(nativeMobile){try{const result=await Narrator.playLocal({paths});if(result.spoken){if(valid())setSpeaking(true);return}}catch{}}
+      else{
+       const play=async index=>{if(!valid())return;const player=new Audio(paths[index]);audio.current=player;player.playbackRate=1.05;player.preservesPitch=true;player.onended=()=>{if(index+1<paths.length)play(index+1).catch(fail);else if(valid())setSpeaking(false)};player.onerror=fail;await player.play();if(valid())setSpeaking(true);else player.pause()};
+       try{await play(0);return}catch{if(!valid())return}
+      }
     }
     if(nativeMobile){
       try{const result=await Narrator.speak({text,language,voiceName});if(valid()){setSpeaking(!!result.spoken);if(!result.spoken)fail()}}
@@ -54,7 +58,7 @@ export default function useOfflineNarration({sound=true,language='en',sceneKey,v
     if(!voice){fail();return}
     try{
       const utterance=new SpeechSynthesisUtterance(text);speech.current=utterance;
-      utterance.voice=voice;utterance.lang=voice.lang;utterance.rate=.9;utterance.pitch=1;
+      utterance.voice=voice;utterance.lang=voice.lang;utterance.rate=1.05;utterance.pitch=1;
       utterance.onstart=()=>{if(valid())setSpeaking(true)};
       utterance.onend=()=>{if(valid())setSpeaking(false)};utterance.onerror=fail;
       synth.speak(utterance);

@@ -101,5 +101,168 @@
         }
       }
     ]
+  },
+  "variants": {
+    "wrong": [
+      {
+        "id": "check-evidence",
+        "expression": "think",
+        "text": {
+          "en": "Check the ratios and probabilities before trying again. Which detail needs another look?",
+          "tl": "Suriin ang mga ratio at probabilidad bago subukang muli. Aling detalye ang dapat tingnan?"
+        }
+      },
+      {
+        "id": "try-one-step",
+        "expression": "think",
+        "text": {
+          "en": "Work through one step first. Use the clue below to test your reasoning.",
+          "tl": "Unahin ang isang hakbang. Gamitin ang pahiwatig upang suriin ang iyong pangangatwiran."
+        }
+      },
+      {
+        "id": "compare-clues",
+        "expression": "explain",
+        "text": {
+          "en": "Compare your choice with the ratios and probabilities. Look for a detail that supports it.",
+          "tl": "Ihambing ang napili sa mga ratio at probabilidad. Hanapin ang detalyeng sumusuporta rito."
+        }
+      },
+      {
+        "id": "revise-step",
+        "expression": "encourage",
+        "text": {
+          "en": "You can revise this step. Read the clue and make a new decision.",
+          "tl": "Maaari mong baguhin ang hakbang na ito. Basahin ang pahiwatig at magpasya muli."
+        }
+      }
+    ],
+    "correct": [
+      {
+        "id": "evidence-check",
+        "expression": "celebrate",
+        "text": {
+          "en": "Your reasoning fits the ratios and probabilities. That step is complete.",
+          "tl": "Tugma ang iyong pangangatwiran sa mga ratio at probabilidad. Tapos na ang hakbang na iyon."
+        }
+      },
+      {
+        "id": "connection-made",
+        "expression": "celebrate",
+        "text": {
+          "en": "You connected the clues. Use that idea in your next task.",
+          "tl": "Naiugnay mo ang mga palatandaan. Gamitin ang ideyang iyon sa susunod na gawain."
+        }
+      },
+      {
+        "id": "progress-saved",
+        "expression": "celebrate",
+        "text": {
+          "en": "Another discovery saved. You are ready for the next step.",
+          "tl": "Naka-save ang isa pang natuklasan. Handa ka na sa susunod na hakbang."
+        }
+      },
+      {
+        "id": "careful-observation",
+        "expression": "celebrate",
+        "text": {
+          "en": "Careful observation paid off. Keep building on what you found.",
+          "tl": "Nakatulong ang maingat na pagmamasid. Ipagpatuloy ang pagbuo ng iyong mga natuklasan."
+        }
+      }
+    ],
+    "idle": [
+      {
+        "id": "next-small-step",
+        "expression": "encourage",
+        "text": {
+          "en": "Need a starting point? Inspect the ratios and probabilities, or tap my speech icon for directions.",
+          "tl": "Kailangan ng panimulang hakbang? Suriin ang mga ratio at probabilidad, o pindutin ang aking speech icon para sa gabay."
+        }
+      },
+      {
+        "id": "look-for-goal",
+        "expression": "explain",
+        "text": {
+          "en": "The next activity portal is your goal. I will guide you there.",
+          "tl": "Ang portal ng susunod na gawain ang iyong pupuntahan. Gagabayan kita roon."
+        }
+      }
+    ],
+    "talk": [
+      {
+        "id": "task-help",
+        "expression": "explain",
+        "text": {
+          "en": "Use the ratios and probabilities to decide your next step.",
+          "tl": "Gamitin ang mga ratio at probabilidad sa pagpapasya sa susunod na hakbang."
+        }
+      }
+    ]
+  },
+  "activities": {
+    "simplify-ratios": {
+      "title": {
+        "en": "Simplify the Genetic Ratios",
+        "tl": "Pasimplehin ang mga Genetic Ratio"
+      },
+      "instructions": {
+        "en": "Simplify the Genetic Ratios: Count the displayed outcomes before entering your numbers.",
+        "tl": "Pasimplehin ang mga Genetic Ratio: Bilangin muna ang ipinapakitang resulta bago ilagay ang mga numero."
+      },
+      "hint": {
+        "en": "For genotypes, keep the stated order. For phenotypes, first combine genotypes expressing the same trait. Divide every part of each ratio by its greatest common factor.",
+        "tl": "Sa genotype, panatilihin ang ibinigay na ayos. Sa phenotype, pagsamahin muna ang genotype na pareho ang naipapakitang katangian. Hatiin ang bawat bahagi sa pinakamalaking karaniwang factor."
+      },
+      "hints": {
+        "For genotypes, keep the stated order. For phenotypes, first combine genotypes expressing the same trait. Divide every part of each ratio by its greatest common factor.": "Sa genotype, panatilihin ang ibinigay na ayos. Sa phenotype, pagsamahin muna ang genotype na pareho ang naipapakitang katangian. Hatiin ang bawat bahagi sa pinakamalaking karaniwang factor."
+      }
+    },
+    "percentage-shields": {
+      "title": {
+        "en": "Percentage Shield Controls",
+        "tl": "Mga Kontrol ng Kalasag ng Porsiyento"
+      },
+      "instructions": {
+        "en": "Percentage Shield Controls: Count the displayed outcomes before entering your numbers.",
+        "tl": "Mga Kontrol ng Kalasag ng Porsiyento: Bilangin muna ang ipinapakitang resulta bago ilagay ang mga numero."
+      },
+      "hint": {
+        "en": "Use probability = matching boxes ÷ total boxes × 100. A genotype absent from the square has zero matching boxes.",
+        "tl": "Gamitin: posibilidad = tumutugmang kahon ÷ kabuuang kahon × 100. Walang tumutugmang kahon ang genotype na wala sa square."
+      },
+      "hints": {
+        "Use probability = matching boxes ÷ total boxes × 100. A genotype absent from the square has zero matching boxes.": "Gamitin: posibilidad = tumutugmang kahon ÷ kabuuang kahon × 100. Walang tumutugmang kahon ang genotype na wala sa square."
+      }
+    },
+    "probability-check": {
+      "title": {
+        "en": "Probability Guardian Check",
+        "tl": "Pagsusuri ng Tagapagbantay ng Posibilidad"
+      },
+      "instructions": {
+        "en": "Probability Guardian Check: Read the question and use the evidence from this activity before choosing.",
+        "tl": "Pagsusuri ng Tagapagbantay ng Posibilidad: Basahin ang tanong at gamitin ang ebidensya ng gawain bago pumili."
+      },
+      "hint": {
+        "en": "Count the relevant boxes and compare them with the total. Simplify ratios and check that percentages sum to a whole.",
+        "tl": "Bilangin ang angkop na mga kahon at ihambing sa kabuuan. Pasimplehin ang ratio at tiyaking buo ang kabuuang porsiyento."
+      },
+      "hints": {
+        "Count the relevant boxes and compare them with the total. Simplify ratios and check that percentages sum to a whole.": "Bilangin ang angkop na mga kahon at ihambing sa kabuuan. Pasimplehin ang ratio at tiyaking buo ang kabuuang porsiyento.",
+        "Each offspring is a new event. A probability does not guarantee a particular family total.": "Bagong pangyayari ang bawat supling. Hindi tinitiyak ng posibilidad ang isang partikular na bilang sa pamilya.",
+        "In simplest form, the parts have no common factor greater than one.": "Sa pinakasimpleng anyo, walang karaniwang factor na higit sa isa ang mga bahagi."
+      }
+    },
+    "finale": {
+      "instructions": {
+        "en": "Use one allele from each parent for every offspring box. Count the outcomes, then check the round.",
+        "tl": "Gumamit ng tig-isang allele mula sa bawat magulang sa bawat kahon. Bilangin ang mga resulta, saka suriin ang yugto."
+      },
+      "hint": {
+        "en": "Count the relevant boxes and compare them with the total. Simplify ratios and check that percentages sum to a whole.",
+        "tl": "Bilangin ang angkop na mga kahon at ihambing sa kabuuan. Pasimplehin ang ratio at tiyaking buo ang kabuuang porsiyento."
+      }
+    }
   }
 }

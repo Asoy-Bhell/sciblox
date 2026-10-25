@@ -37,3 +37,17 @@ test('accepted gameplay progress triggers celebration and level up once',()=>{
 test('wrong-answer dialogue contains process hints without an answer key',()=>{
  for(const station of stationDialogues)for(const scene of station.scenes.wrong){assert.equal(scene.expression,'think');assert.equal('answer' in scene,false);assert.equal('options' in scene,false);assert.doesNotMatch(scene.hint.en,/correct answer|choose (A|B|C|D)\b|\b75%\b/i)}
 });
+
+test('each activity has bilingual directions and contextual feedback rotates without answer keys',()=>{
+ for(const [index,data]of stationDialogues.entries()){
+  for(const [id,activity]of Object.entries(data.activities)){
+   assert.ok(activity.instructions.en);assert.ok(activity.instructions.tl);
+   assert.equal(getGuideScenes(index,'talk',{activityId:id})[0].text,activity.instructions);
+   for(const trigger of ['wrong','correct']){
+    const variants=Array.from({length:4},(_,variant)=>getGuideScenes(index,trigger,{activityId:id,variant})[0]);
+    assert.equal(new Set(variants.map(scene=>scene.text.en)).size,4);
+    for(const scene of variants){assert.ok(scene.text.tl);assert.equal(scene.answer,undefined);assert.equal(scene.options,undefined)}
+   }
+  }
+ }
+});

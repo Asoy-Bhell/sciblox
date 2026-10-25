@@ -15,9 +15,9 @@ const worldPoint=({x=12,y=82}={})=>({x:(x-50)*.24,z:(y-50)*.20});
 const SAFE=worldPoint({x:12,y:82});
 const NEST=worldPoint({x:78,y:44});
 
-export default function AdventureWorld3D({position,guardian,walking=false,facing='right',run,remotePlayers=[],outfit='Explorer',actor='solo',onEgg,motion=true,avatar='Human',gender='girl',picture,playerName='Explorer',onTalk,onCameraHeading}){
+export default function AdventureWorld3D({position,guardian,walking=false,facing='right',run,remotePlayers=[],outfit='Explorer',actor='solo',onEgg,motion=true,avatar='Human',gender='girl',picture,playerName='Explorer',onTalk,onCameraHeading,liveMotion}){
  const [cameraMode,setCameraMode]=useState('follow');
- const latest=useRef({});latest.current={position,guardian,walking,facing,run,remotePlayers,outfit,actor,onEgg,motion,cameraMode,avatar,gender,picture,playerName,onTalk,onCameraHeading};
+ const latest=useRef({});latest.current={position,guardian,walking,facing,run,remotePlayers,outfit,actor,onEgg,motion,cameraMode,avatar,gender,picture,playerName,onTalk,onCameraHeading,liveMotion};
  const buildScene=useCallback(({scene,camera,renderer,element,THREE})=>{
   const cameraRig=createWorldCameraRig(renderer.domElement);
   renderer.shadowMap.enabled=false;renderer.shadowMap.type=THREE.PCFShadowMap;
@@ -130,7 +130,7 @@ export default function AdventureWorld3D({position,guardian,walking=false,facing
   const down=event=>{pointerStart={x:event.clientX,y:event.clientY}};
   const up=event=>{
    if(cameraRig.didDrag()||!pointerStart||Math.hypot(event.clientX-pointerStart.x,event.clientY-pointerStart.y)>10)return;
-   pointerStart=null;const target=intersect(event);if(target)latest.current.onEgg?.(target.userData.eggIndex);
+   pointerStart=null;const target=intersect(event);if(raycaster.intersectObject(guide,true).length){latest.current.onTalk?.();return}if(target)latest.current.onEgg?.(target.userData.eggIndex);
   };
   const hover=event=>{if(event.pointerType!=='touch')renderer.domElement.style.cursor=intersect(event)?'pointer':'default'};
   renderer.domElement.addEventListener('pointerdown',down);renderer.domElement.addEventListener('pointerup',up);renderer.domElement.addEventListener('pointermove',hover);
@@ -141,9 +141,9 @@ export default function AdventureWorld3D({position,guardian,walking=false,facing
    resize(width,height){aspect=width/Math.max(height,1)},
    update(delta,time){
     cameraRig.update(delta);
-    const data=latest.current,p=worldPoint(data.position),g=worldPoint(data.guardian),animated=data.motion;
-    const identity=JSON.stringify([data.outfit,data.avatar,data.gender,data.picture,data.playerName]);if(identity!==explorerOutfit){scene.remove(explorer);disposeObject(explorer);explorer=playerModel(data);scene.add(explorer);explorerOutfit=identity}animateExplorer(guide,{talking:animated,facing:'down',time:animated?time:0,delta});
-    explorer.position.set(p.x,cameraRig.height(),p.z);explorer.visible=data.cameraMode!=='first';animateExplorer(explorer,{walking:data.walking&&animated,facing:data.facing,talking:false,time:animated?time:0,delta});
+    const data=latest.current,p=worldPoint(data.liveMotion?.current?.player||data.position),g=worldPoint(data.liveMotion?.current?.guardian||data.guardian),animated=data.motion;
+    const identity=JSON.stringify([data.outfit,data.avatar,data.gender,data.picture,data.playerName]);if(identity!==explorerOutfit){scene.remove(explorer);disposeObject(explorer);explorer=playerModel(data);scene.add(explorer);explorerOutfit=identity}animateExplorer(guide,{talking:false,facing:'down',time:animated?time:0,delta});
+    explorer.position.set(p.x,cameraRig.height(),p.z);explorer.visible=data.cameraMode!=='first';animateExplorer(explorer,{walking:(data.liveMotion?.current?.walking??data.walking)&&animated,facing:data.liveMotion?.current?.facing||data.facing,talking:false,time:animated?time:0,delta});
     marker.position.set(p.x,.045,p.z);marker.rotation.y=Math.PI/4;
     guardianNode.position.set(g.x,data.run.chasing&&animated?Math.abs(Math.sin(time*7))*.12:0,g.z);
     const chased=data.run.chaseActor===data.actor?data.position:data.remotePlayers.find(player=>player.id===data.run.chaseActor)||data.position;

@@ -2,9 +2,8 @@
 import {t,getLanguage} from './i18n';
 import React,{useEffect,useRef,useState} from 'react';
 import useOfflineNarration from './guide/useOfflineNarration';
+import BhellAudioToggle from './BhellAudioToggle';
 import {nativeMobile} from './mobile';
-import {Volume2} from 'lucide-react';
-import {BHELL_MEDIA,localMedia} from './scene-media';
 import Character3D,{Pet3D,Egg3D} from './Character3D';
 import ProfilePortrait from './ProfilePortrait';
 
@@ -12,16 +11,16 @@ export function AnimatedCharacter({state='idle',size=88,facing='right',className
  return <Character3D state={state} size={size} facing={facing} className={className} label={t(label)} outfit={outfit} motion={motion}><span className="mia-sprite"/></Character3D>
 }
 
-export function StoryDialog({text,speaker='Bhell',motion=true,sound=true,scene=0,icon}){
+export function StoryDialog({text,speaker='Bhell',motion=true,sound=true,scene=0,icon,onSoundChange}){
  text=t(text);
  const [visible,setVisible]=useState(motion?'':text),timer=useRef(null);
- const narration=useOfflineNarration({sound,language:getLanguage(),sceneKey:'story-'+scene+'-'+text});
+ const [localMuted,setLocalMuted]=useState(false),enabled=sound&&!localMuted;
+ const narration=useOfflineNarration({sound:enabled,language:getLanguage(),sceneKey:'story-'+scene+'-'+text});
  const speaking=narration.speaking,voiceStatus=narration.status;
  useEffect(()=>{setVisible(motion?'':text);if(motion){let length=0;timer.current=setInterval(()=>{length=Math.min(length+3,text.length);setVisible(text.slice(0,length));if(length===text.length)clearInterval(timer.current)},24)}return()=>clearInterval(timer.current)},[text,motion]);
- useEffect(()=>{if(!sound)return;const task=setTimeout(()=>narration.speak(text),180);return()=>{clearTimeout(task);narration.stop()}},[text,sound,narration.speak,narration.stop]);
- const narrate=()=>{setVisible(text);clearInterval(timer.current);if(speaking)narration.stop();else narration.speak(text)};
+ useEffect(()=>{if(!enabled)return;const task=setTimeout(()=>narration.speak(text),180);return()=>{clearTimeout(task);narration.stop()}},[text,enabled,narration.speak,narration.stop]);
  const talking=speaking||visible.length<text.length;
- return <div className={'story-stage character-story scene-'+scene} key={scene}><span className="story-glow"/><div className={'bhell-portrait story-mia '+(talking&&motion?'bhell-talking':'')}><img src="/assets/bhell-guide.png" alt="Bhell, your science guide"/><span className="bhell-hand" aria-hidden="true">{t("✦")}</span></div>{t(icon&&<span className="story-topic">{t(icon)}</span>)}<div className="speech"><span className="speaker-name">{t(speaker)}<small>{t("YOUR SCIENCE EXPLORER")}</small></span><p aria-label={t(text)}><span className="dialogue-space" aria-hidden="true">{t(text)}</span><span className="dialogue-visible" aria-hidden="true">{t(visible||'…')}</span><span className="sr-only">{t(text)}</span></p><div className="speech-controls">{t(visible.length<text.length&&<button className="text-button" onClick={()=>{clearInterval(timer.current);setVisible(text)}}>{t("Show full dialogue")}</button>)}<button className="text-button" onClick={narrate}><Volume2 size={15}/>{t(" Hear Bhell")}</button></div>{t(voiceStatus&&<small className="voice-status" role="status">{t(voiceStatus)}</small>)}</div><span className="story-land">{t("🌱 🌼 🌿")}</span></div>
+ return <div className={'story-stage character-story scene-'+scene} key={scene}><span className="story-glow"/><div className={'bhell-portrait story-mia '+(talking&&motion?'bhell-talking':'')}><img src="/assets/bhell-guide.png" alt="Bhell, your science guide"/><span className="bhell-hand" aria-hidden="true">{t("✦")}</span></div>{t(icon&&<span className="story-topic">{t(icon)}</span>)}<div className="speech"><span className="speaker-name">{t(speaker)}<small>{t("YOUR SCIENCE EXPLORER")}</small></span><p aria-label={t(text)}><span className="dialogue-space" aria-hidden="true">{t(text)}</span><span className="dialogue-visible" aria-hidden="true">{t(visible||'…')}</span><span className="sr-only">{t(text)}</span></p><div className="speech-controls">{t(visible.length<text.length&&<button className="text-button" onClick={()=>{clearInterval(timer.current);setVisible(text)}}>{t("Show full dialogue")}</button>)}<BhellAudioToggle sound={enabled} onChange={value=>{narration.stop();if(onSoundChange)onSoundChange(value);else setLocalMuted(!value)}}/></div>{t(voiceStatus&&<small className="voice-status" role="status">{t(voiceStatus)}</small>)}</div><span className="story-land">{t("🌱 🌼 🌿")}</span></div>
 }
 
 export function HatchReveal({pet,onClose}){

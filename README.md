@@ -46,7 +46,7 @@ npm test runs state, multiplayer, model, migration, and station-assessment check
 
 Physical testing on the Samsung A16 5G and Huawei P40 Pro, including a two-phone hotspot session, remains pending. Generated concept images are references; the running prototype uses simpler original models, level walkable ground, and scenic cliffs. There is no building/destruction or Minecraft-compatible networking. Progress is removed on uninstall/clear-data; no cloud recovery is provided.
 
-Choose **English** or **Tagalog** on the home screen or in Settings. This preference saves on the device and works offline. Tagalog narration requires an installed offline Tagalog/Filipino voice; captions remain available. See IMPLEMENTATION_NOTES.md for the 1.5 implementation and validation details.
+Choose **English** or **Tagalog** on the home screen or in Settings. This preference saves on the device and works offline. Tagalog Bhell narration is bundled in the app and works without an installed Filipino voice pack. Explicitly chosen device voices still depend on their installed language packs. See IMPLEMENTATION_NOTES.md for the 1.5 implementation and validation details.
 
 ## Current development status
 
@@ -71,7 +71,7 @@ The current human avatars use simple blocky geometry, following the selected
 art direction. World camera movement uses matched aim/position smoothing,
 without automatic walking bob. Guardian status is a small blue alert. Settings
 provides an offline voice chooser and preview, with separate English/Tagalog
-preferences; the phone's installed voices determine the available sound.
+preferences. English uses installed offline device voices; Tagalog also offers bundled local narration.
 
 ## Authors
 
@@ -81,3 +81,11 @@ preferences; the phone's installed voices determine the available sound.
 ## Version history
 
 Development changes are recorded in the repository commit history. Generated build files, local configuration, signing credentials, and local document exports are excluded through `.gitignore`.
+
+## Bhell guide update (1.6.2)
+
+Bhell now narrates review scenes automatically with a small persistent mute icon. The 3D world uses one header speaker control, with an × when muted. Activity and egg panels are compact; egg answers remain unselected until tapped and require Submit. Bhell walks toward the next activity portal and offers task-specific bilingual directions, hints and rotating feedback. Re-entering a saved run does not replay a dismissed introduction.
+
+Achievement cards show earned/locked status and their unlock conditions. Station mastery requires three stars (no activity mistakes); Genetics Master requires a Legendary or Prismatic fusion in Station 8. Badges record progress and are not currency.
+
+The egg-hunt renderer reads live motion each frame, and the joystick tracks its own touch pointer so releasing another finger does not interrupt movement. Native and browser narration use a slightly faster conversational rate (1.05×). See [voice attribution](public/assets/bhell/audio/README.md) for the included Tagalog voice assets and their separate noncommercial license. Physical-device playback and smoothness still need device verification.

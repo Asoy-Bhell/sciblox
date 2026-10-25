@@ -101,5 +101,152 @@
         }
       }
     ]
+  },
+  "variants": {
+    "wrong": [
+      {
+        "id": "check-evidence",
+        "expression": "think",
+        "text": {
+          "en": "Check the pedigree symbols before trying again. Which detail needs another look?",
+          "tl": "Suriin ang mga simbolo ng pedigree bago subukang muli. Aling detalye ang dapat tingnan?"
+        }
+      },
+      {
+        "id": "try-one-step",
+        "expression": "think",
+        "text": {
+          "en": "Work through one step first. Use the clue below to test your reasoning.",
+          "tl": "Unahin ang isang hakbang. Gamitin ang pahiwatig upang suriin ang iyong pangangatwiran."
+        }
+      },
+      {
+        "id": "compare-clues",
+        "expression": "explain",
+        "text": {
+          "en": "Compare your choice with the pedigree symbols. Look for a detail that supports it.",
+          "tl": "Ihambing ang napili sa mga simbolo ng pedigree. Hanapin ang detalyeng sumusuporta rito."
+        }
+      },
+      {
+        "id": "revise-step",
+        "expression": "encourage",
+        "text": {
+          "en": "You can revise this step. Read the clue and make a new decision.",
+          "tl": "Maaari mong baguhin ang hakbang na ito. Basahin ang pahiwatig at magpasya muli."
+        }
+      }
+    ],
+    "correct": [
+      {
+        "id": "evidence-check",
+        "expression": "celebrate",
+        "text": {
+          "en": "Your reasoning fits the pedigree symbols. That step is complete.",
+          "tl": "Tugma ang iyong pangangatwiran sa mga simbolo ng pedigree. Tapos na ang hakbang na iyon."
+        }
+      },
+      {
+        "id": "connection-made",
+        "expression": "celebrate",
+        "text": {
+          "en": "You connected the clues. Use that idea in your next task.",
+          "tl": "Naiugnay mo ang mga palatandaan. Gamitin ang ideyang iyon sa susunod na gawain."
+        }
+      },
+      {
+        "id": "progress-saved",
+        "expression": "celebrate",
+        "text": {
+          "en": "Another discovery saved. You are ready for the next step.",
+          "tl": "Naka-save ang isa pang natuklasan. Handa ka na sa susunod na hakbang."
+        }
+      },
+      {
+        "id": "careful-observation",
+        "expression": "celebrate",
+        "text": {
+          "en": "Careful observation paid off. Keep building on what you found.",
+          "tl": "Nakatulong ang maingat na pagmamasid. Ipagpatuloy ang pagbuo ng iyong mga natuklasan."
+        }
+      }
+    ],
+    "idle": [
+      {
+        "id": "next-small-step",
+        "expression": "encourage",
+        "text": {
+          "en": "Need a starting point? Inspect the pedigree symbols, or tap my speech icon for directions.",
+          "tl": "Kailangan ng panimulang hakbang? Suriin ang mga simbolo ng pedigree, o pindutin ang aking speech icon para sa gabay."
+        }
+      },
+      {
+        "id": "look-for-goal",
+        "expression": "explain",
+        "text": {
+          "en": "The next activity portal is your goal. I will guide you there.",
+          "tl": "Ang portal ng susunod na gawain ang iyong pupuntahan. Gagabayan kita roon."
+        }
+      }
+    ],
+    "talk": [
+      {
+        "id": "task-help",
+        "expression": "explain",
+        "text": {
+          "en": "Use the pedigree symbols to decide your next step.",
+          "tl": "Gamitin ang mga simbolo ng pedigree sa pagpapasya sa susunod na hakbang."
+        }
+      }
+    ]
+  },
+  "activities": {
+    "pedigree-legend": {
+      "title": {
+        "en": "Decode the Pedigree Legend",
+        "tl": "Unawain ang Legend ng Pedigree"
+      },
+      "instructions": {
+        "en": "Decode the Pedigree Legend: Read the question and use the evidence from this activity before choosing.",
+        "tl": "Unawain ang Legend ng Pedigree: Basahin ang tanong at gamitin ang ebidensya ng gawain bago pumili."
+      },
+      "hint": {
+        "en": "Read shape and shading separately. Check the legend and trace the connecting lines before deciding.",
+        "tl": "Basahin nang magkahiwalay ang hugis at shading. Suriin ang legend at sundan ang mga linya bago magpasya."
+      },
+      "hints": {
+        "Read shape and shading separately. Check the legend and trace the connecting lines before deciding.": "Basahin nang magkahiwalay ang hugis at shading. Suriin ang legend at sundan ang mga linya bago magpasya.",
+        "Read the shape and shading as two independent pieces of information.": "Basahin ang hugis at kulay ng simbolo bilang dalawang magkahiwalay na impormasyon.",
+        "A square represents male; an unfilled symbol means the modeled trait is absent.": "Kinakatawan ng parisukat ang lalaki; ibig sabihin ng simbolong walang kulay ay wala ang katangian sa modelo.",
+        "A pedigree legend defines the trait being tracked. That trait can be dominant or recessive.": "Tinutukoy ng legend ng pedigree ang sinusubaybayang katangian. Maaari itong dominante o resesibo."
+      }
+    },
+    "family-construction": {
+      "title": {
+        "en": "Build the Three-generation Tree",
+        "tl": "Buuin ang Puno ng Tatlong Henerasyon"
+      },
+      "instructions": {
+        "en": "Build the Three-generation Tree: Place the portraits by generation and use the legend for the trait symbols.",
+        "tl": "Buuin ang Puno ng Tatlong Henerasyon: Ilagay ang mga larawan ayon sa henerasyon at gamitin ang legend ng mga simbolo."
+      },
+      "hint": {
+        "en": "Read shape and shading separately. Check the legend and trace the connecting lines before deciding.",
+        "tl": "Basahin nang magkahiwalay ang hugis at shading. Suriin ang legend at sundan ang mga linya bago magpasya."
+      },
+      "hints": {
+        "Read shape and shading separately. Check the legend and trace the connecting lines before deciding.": "Basahin nang magkahiwalay ang hugis at shading. Suriin ang legend at sundan ang mga linya bago magpasya."
+      }
+    },
+    "finale": {
+      "instructions": {
+        "en": "Find the remaining eggs. Read each question before selecting and submitting an answer. Return to camp if a guardian follows you.",
+        "tl": "Hanapin ang natitirang itlog. Basahin ang tanong bago pumili at magsumite ng sagot. Bumalik sa kampo kapag may sumunod na tagapagbantay."
+      },
+      "hint": {
+        "en": "Read shape and shading separately. Check the legend and trace the connecting lines before deciding.",
+        "tl": "Basahin nang magkahiwalay ang hugis at shading. Suriin ang legend at sundan ang mga linya bago magpasya."
+      }
+    }
   }
 }

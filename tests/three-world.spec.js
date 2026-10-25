@@ -55,14 +55,14 @@ function eggRun(){
 }
 
 test('3D activity world renders, walks and switches cameras after portrait station selection',async({page})=>{
- await seed(page,{run:{...eggRun(),completedActivities:[],activeActivity:preparationPlan(0)[0]}});await page.getByRole('button',{name:'Resume session',exact:true}).click();await page.getByRole('button',{name:'Let’s explore',exact:true}).click();const hub=page.locator(hubSelector);await rendered(hub.locator('.three-viewport'));const player=hub.locator('[aria-label="Your explorer"]');const start=await player.evaluate(el=>parseFloat(el.style.left));await page.keyboard.down('ArrowRight');await expect(player.locator('[data-animation]')).toHaveAttribute('data-animation','walk');await expect.poll(()=>player.evaluate(el=>parseFloat(el.style.left))).toBeGreaterThan(start+1);await page.keyboard.up('ArrowRight');await expect(player.locator('[data-animation]')).toHaveAttribute('data-animation','idle');await hub.getByRole('button',{name:'View island overview',exact:true}).click();await expect(hub).toHaveAttribute('data-camera','overview');await hub.getByRole('button',{name:'Follow my explorer',exact:true}).click();await expect(hub).toHaveAttribute('data-camera','follow');
+ await seed(page,{run:{...eggRun(),completedActivities:[],activeActivity:preparationPlan(0)[0]}});await page.getByRole('button',{name:'Resume session',exact:true}).click();await page.getByRole('button',{name:'Skip',exact:true}).click();const hub=page.locator(hubSelector);await rendered(hub.locator('.three-viewport'));const player=hub.locator('[aria-label="Your explorer"]');const start=await player.evaluate(el=>parseFloat(el.style.left));await page.keyboard.down('ArrowRight');await expect(player.locator('[data-animation]')).toHaveAttribute('data-animation','walk');await expect.poll(()=>player.evaluate(el=>parseFloat(el.style.left))).toBeGreaterThan(start+1);await page.keyboard.up('ArrowRight');await expect(player.locator('[data-animation]')).toHaveAttribute('data-animation','idle');await hub.getByRole('button',{name:'View island overview',exact:true}).click();await expect(hub).toHaveAttribute('data-camera','overview');await hub.getByRole('button',{name:'Follow my explorer',exact:true}).click();await expect(hub).toHaveAttribute('data-camera','follow');
 });
 
 test('rendered egg can be ray-picked and accessible controls preserve collection',async({page})=>{
  test.setTimeout(60000);
  await seed(page,{run:eggRun()});
  await page.getByRole('button',{name:'Resume session',exact:true}).click();
- await page.getByRole('button',{name:'Let’s explore',exact:true}).click();
+ await page.getByRole('button',{name:'Skip',exact:true}).click();
  const world=page.locator('.adventure-world3d'),viewport=world.locator('.three-viewport');
  await rendered(viewport);
  await moveTo(page,72,22);
@@ -84,7 +84,7 @@ test('rendered egg can be ray-picked and accessible controls preserve collection
 });
 
 test('WebGL context loss recovers without replacing saved game progression',async({page})=>{
- await seed(page,{points:123,xp:50,completed:[0],run:{...eggRun(),completedActivities:[],activeActivity:preparationPlan(0)[0]}});await page.getByRole('button',{name:'Resume session',exact:true}).click();await page.getByRole('button',{name:'Let’s explore',exact:true}).click();
+ await seed(page,{points:123,xp:50,completed:[0],run:{...eggRun(),completedActivities:[],activeActivity:preparationPlan(0)[0]}});await page.getByRole('button',{name:'Resume session',exact:true}).click();await page.getByRole('button',{name:'Skip',exact:true}).click();
  const viewport=page.locator(hubSelector+' .three-viewport');
  await rendered(viewport);
  const frames=Number(await viewport.getAttribute('data-frame-count'));
@@ -111,7 +111,7 @@ test('phone portrait and landscape scenes fit and use bundled local assets',asyn
   if(!['127.0.0.1','localhost'].includes(url.hostname)){external.push(url.href);return route.abort()}
   return route.continue();
  });
- await seed(page,{run:{...eggRun(),completedActivities:[],activeActivity:preparationPlan(0)[0]}});await page.getByRole('button',{name:'Resume session',exact:true}).click();await page.getByRole('button',{name:'Let’s explore',exact:true}).click();
+ await seed(page,{run:{...eggRun(),completedActivities:[],activeActivity:preparationPlan(0)[0]}});await page.getByRole('button',{name:'Resume session',exact:true}).click();await page.getByRole('button',{name:'Skip',exact:true}).click();
  const hub=page.locator(hubSelector);
  await rendered(hub.locator('.three-viewport'));
  for(const size of [{width:390,height:844},{width:844,height:390}]){

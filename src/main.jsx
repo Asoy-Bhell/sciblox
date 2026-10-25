@@ -16,3 +16,5 @@ import './concept-ui.css';
 
 import './reference-ui.css';
 import './upgrade-ui.css';
+
+import './compact-guide-ui.css';

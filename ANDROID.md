@@ -89,8 +89,8 @@ voice and use **Preview voice** before returning to play. English and Tagalog
 voice choices save separately. If only one compatible voice is installed, a
 different voice must first be installed through the phone's speech settings.
 Changing pitch or speed does not create a different voice. Consistent custom
-character narration across phones requires bundled recordings, which have not
-been supplied. All Bhell dialogue uses the shared calm narration hook and mute
+character narration across phones requires bundled recordings. Version 1.6.2
+now includes a Tagalog pack; English uses installed device voices. All Bhell dialogue uses the shared calm narration hook and mute
 setting.
 
 After running `npm run android:debug`, install
@@ -109,3 +109,11 @@ Installer SHA-256:
 The installer and local validation JSON are excluded from Git; source code and
 these build instructions are included. This build has compile and focused
 browser coverage, rather than a completed physical-device test run.
+
+## Version 1.6.2 guide refinement
+
+Version code 9 adds compact Bhell mute controls, automatic review narration, smaller in-world question/workshop panels, contextual guide directions and feedback, and pointer-specific joystick handling. Tagalog Bhell narration is included as bundled local MP3 clips; it does not require an installed Tagalog speech pack. English and explicitly selected device voices use installed offline speech engines. Voice assets carry their own CC BY-NC 4.0 attribution in `public/assets/bhell/audio/README.md`.
+
+Install the new APK as an update, retaining app data. Physical-device native audio and perceived movement smoothness remain checks to perform on the target phones. Historical test counts above apply only to their stated releases.
+
+The 1.6.2 development installer is `artifacts/SciBlox-1.6.2-debug.apk` (version code 9; 29,205,310 bytes). Its signing certificate matches 1.6.1. SHA-256: `6E9EAEC699463213CBBAC7D306847F049DB4BB680E1BB6D14E06015629D586E2`. All 172 MP3s are stored as directly accessible Android assets. The local `artifacts/SciBlox-1.6.2-validation.json` records build and test evidence; these generated artifacts are excluded from Git.

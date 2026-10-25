@@ -135,3 +135,16 @@ The Android signing certificate matches the prior debug build. Physical-phone
 smoothness, native voice selection, two-device classroom/co-op, and Xcode
 compilation remain unverified for this version. See
 `tests/native-upgrade-smoke.mjs` for the prepared native bridge/sync checks.
+
+## Version 1.6.2: compact guide and live movement
+
+- Portrait Bhell scenes narrate automatically and use a compact persistent speaker/mute icon. In-world narration uses only the header control; muted state shows an ×. Animated-scene and sound preferences remain independent.
+- Egg prompts open with focus on the dialog, not an answer, and still require an explicit Submit. Activity 1 shows three compact discovery cards and one shared evidence box; its Save action fits a 740×360 viewport without scrolling.
+- The egg-hunt renderer reads a live motion ref each frame rather than waiting for 70 ms React position publications. Joystick ownership follows the active pointer, with a radial dead zone; another finger's release does not clear movement. Matched camera position/aim damping and stationary blocky body/head animation remain in place.
+- Bhell moves toward the active portal. Per-station JSON now includes bilingual activity directions and four distinct wrong/correct feedback variants; wrong-answer hooks forward contextual process hints. Dismissed run introductions are remembered.
+- Badge cards show locked/earned state and actual reducer conditions: three-star station mastery, or Legendary/Prismatic fusion for Genetics Master. They do not add spendable currency.
+- 172 authored Tagalog clips are bundled locally as mono MP3 (8,308,872 bytes; 1,384.81 seconds total). All clips decoded successfully, and each contextual guide scene/hint resolves to a local clip. Attribution and CC BY-NC 4.0 terms for these voice assets are in public/assets/bhell/audio/README.md. English still uses installed offline device voices. Narration pace is 1.05× with unchanged pitch.
+
+Validation: 53 unit checks passed. Forty-four distinct browser scenarios passed across the broad and focused follow-up runs, covering real two-finger input, no initial egg selection, short landscape panels, useful/varied guidance, portrait automatic narration, saved mute preference, badge explanations, and actual decoded Tagalog audio with no device voice or external requests. Initial stale selectors and test-fixture/time-limit failures were corrected and rerun; these are not presented as a single clean full-suite run. Android native narration compilation passed. Final APK metadata is recorded in the local versioned validation report.
+
+Physical-phone audio quality and perceived smoothness, two-device classroom/co-op behavior, and iOS compilation still require target-device validation.

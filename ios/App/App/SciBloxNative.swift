@@ -17,12 +17,15 @@ final class SciBloxViewController: CAPBridgeViewController {
 }
 
 @objc(NarratorPlugin)
-public final class NarratorPlugin: CAPPlugin, CAPBridgedPlugin, AVSpeechSynthesizerDelegate {
+public final class NarratorPlugin: CAPPlugin, CAPBridgedPlugin, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate {
     public let identifier = "NarratorPlugin", jsName = "Narrator"
-    public let pluginMethods = [CAPPluginMethod(name: "speak", returnType: CAPPluginReturnPromise), CAPPluginMethod(name: "stop", returnType: CAPPluginReturnPromise), CAPPluginMethod(name: "voices", returnType: CAPPluginReturnPromise)]
+    public let pluginMethods = [CAPPluginMethod(name: "speak", returnType: CAPPluginReturnPromise), CAPPluginMethod(name: "stop", returnType: CAPPluginReturnPromise), CAPPluginMethod(name: "voices", returnType: CAPPluginReturnPromise), CAPPluginMethod(name: "playLocal", returnType: CAPPluginReturnPromise)]
     private let speaker = AVSpeechSynthesizer()
+    private var localPlayer: AVAudioPlayer?
+    private var audioQueue: [URL] = []
     override public func load() { speaker.delegate = self }
     @objc func speak(_ call: CAPPluginCall) { DispatchQueue.main.async {
+        self.localPlayer?.stop(); self.localPlayer = nil; self.audioQueue.removeAll()
         self.speaker.stopSpeaking(at: .immediate)
         let tagalog = call.getString("language") == "tl"
         let voices = AVSpeechSynthesisVoice.speechVoices().filter { voice in
@@ -35,10 +38,29 @@ public final class NarratorPlugin: CAPPlugin, CAPBridgedPlugin, AVSpeechSynthesi
         // AVSpeechSynthesizer uses voices installed on this device; no external
         // audio service, downloaded script, or imitation voice is requested.
         let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = voice; utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.90; utterance.pitchMultiplier = 1.0
+        utterance.voice = voice; utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 1.05; utterance.pitchMultiplier = 1.0
         self.speaker.speak(utterance); call.resolve(["spoken": true, "voiceName": voice.name, "recordedVoice": false])
     } }
-    @objc func stop(_ call: CAPPluginCall) { DispatchQueue.main.async { self.speaker.stopSpeaking(at: .immediate); call.resolve() } }
+    @objc func stop(_ call: CAPPluginCall) { DispatchQueue.main.async { self.localPlayer?.stop(); self.localPlayer = nil; self.audioQueue.removeAll(); self.speaker.stopSpeaking(at: .immediate); call.resolve() } }
+    @objc func playLocal(_ call: CAPPluginCall) { DispatchQueue.main.async {
+        self.localPlayer?.stop(); self.audioQueue.removeAll(); self.speaker.stopSpeaking(at: .immediate)
+        guard let paths = call.getArray("paths") as? [String], !paths.isEmpty, paths.count <= 8,
+              paths.allSatisfy({ $0.range(of: "^/assets/bhell/[A-Za-z0-9_/-]+\\.(wav|mp3|ogg)$", options: .regularExpression) != nil }) else { call.resolve(["spoken": false]); return }
+        self.audioQueue = paths.map { Bundle.main.bundleURL.appendingPathComponent("public" + $0) }
+        do { try AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio, options: .duckOthers); try AVAudioSession.sharedInstance().setActive(true)
+            try self.playNextClip(); call.resolve(["spoken": true, "recordedVoice": true])
+        } catch { self.audioQueue.removeAll(); call.resolve(["spoken": false]) }
+    } }
+    private func playNextClip() throws {
+        guard !audioQueue.isEmpty else { localPlayer = nil; notifyListeners("finished", data: [:]); return }
+        let url = audioQueue.removeFirst(), player = try AVAudioPlayer(contentsOf: url)
+        localPlayer = player; player.delegate = self; player.enableRate = true; player.rate = 1.05
+        guard player.play() else { throw NSError(domain: "SciBloxNarrator", code: 1) }
+    }
+    public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        guard player === localPlayer else { return }
+        do { try playNextClip() } catch { audioQueue.removeAll(); localPlayer = nil; notifyListeners("finished", data: [:]) }
+    }
     @objc func voices(_ call: CAPPluginCall) {
         let tagalog = call.getString("language") == "tl"
         let installed = AVSpeechSynthesisVoice.speechVoices().filter { voice in

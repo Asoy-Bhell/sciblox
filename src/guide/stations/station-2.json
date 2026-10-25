@@ -101,5 +101,168 @@
         }
       }
     ]
+  },
+  "variants": {
+    "wrong": [
+      {
+        "id": "check-evidence",
+        "expression": "think",
+        "text": {
+          "en": "Check the family connections before trying again. Which detail needs another look?",
+          "tl": "Suriin ang ugnayan ng pamilya bago subukang muli. Aling detalye ang dapat tingnan?"
+        }
+      },
+      {
+        "id": "try-one-step",
+        "expression": "think",
+        "text": {
+          "en": "Work through one step first. Use the clue below to test your reasoning.",
+          "tl": "Unahin ang isang hakbang. Gamitin ang pahiwatig upang suriin ang iyong pangangatwiran."
+        }
+      },
+      {
+        "id": "compare-clues",
+        "expression": "explain",
+        "text": {
+          "en": "Compare your choice with the family connections. Look for a detail that supports it.",
+          "tl": "Ihambing ang napili sa ugnayan ng pamilya. Hanapin ang detalyeng sumusuporta rito."
+        }
+      },
+      {
+        "id": "revise-step",
+        "expression": "encourage",
+        "text": {
+          "en": "You can revise this step. Read the clue and make a new decision.",
+          "tl": "Maaari mong baguhin ang hakbang na ito. Basahin ang pahiwatig at magpasya muli."
+        }
+      }
+    ],
+    "correct": [
+      {
+        "id": "evidence-check",
+        "expression": "celebrate",
+        "text": {
+          "en": "Your reasoning fits the family connections. That step is complete.",
+          "tl": "Tugma ang iyong pangangatwiran sa ugnayan ng pamilya. Tapos na ang hakbang na iyon."
+        }
+      },
+      {
+        "id": "connection-made",
+        "expression": "celebrate",
+        "text": {
+          "en": "You connected the clues. Use that idea in your next task.",
+          "tl": "Naiugnay mo ang mga palatandaan. Gamitin ang ideyang iyon sa susunod na gawain."
+        }
+      },
+      {
+        "id": "progress-saved",
+        "expression": "celebrate",
+        "text": {
+          "en": "Another discovery saved. You are ready for the next step.",
+          "tl": "Naka-save ang isa pang natuklasan. Handa ka na sa susunod na hakbang."
+        }
+      },
+      {
+        "id": "careful-observation",
+        "expression": "celebrate",
+        "text": {
+          "en": "Careful observation paid off. Keep building on what you found.",
+          "tl": "Nakatulong ang maingat na pagmamasid. Ipagpatuloy ang pagbuo ng iyong mga natuklasan."
+        }
+      }
+    ],
+    "idle": [
+      {
+        "id": "next-small-step",
+        "expression": "encourage",
+        "text": {
+          "en": "Need a starting point? Inspect the family connections, or tap my speech icon for directions.",
+          "tl": "Kailangan ng panimulang hakbang? Suriin ang ugnayan ng pamilya, o pindutin ang aking speech icon para sa gabay."
+        }
+      },
+      {
+        "id": "look-for-goal",
+        "expression": "explain",
+        "text": {
+          "en": "The next activity portal is your goal. I will guide you there.",
+          "tl": "Ang portal ng susunod na gawain ang iyong pupuntahan. Gagabayan kita roon."
+        }
+      }
+    ],
+    "talk": [
+      {
+        "id": "task-help",
+        "expression": "explain",
+        "text": {
+          "en": "Use the family connections to decide your next step.",
+          "tl": "Gamitin ang ugnayan ng pamilya sa pagpapasya sa susunod na hakbang."
+        }
+      }
+    ]
+  },
+  "activities": {
+    "generation-platforms": {
+      "title": {
+        "en": "Generation Platforms",
+        "tl": "Mga Plataporma ng Henerasyon"
+      },
+      "instructions": {
+        "en": "Generation Platforms: Select a card, then place it in the matching group. Check your groups when ready.",
+        "tl": "Mga Plataporma ng Henerasyon: Pumili ng card at ilagay ito sa angkop na grupo. Suriin ang mga grupo kapag handa na."
+      },
+      "hint": {
+        "en": "Trace the family from the oldest generation to their children, then one generation further.",
+        "tl": "Sundan ang pamilya mula sa pinakamatandang henerasyon patungo sa kanilang mga anak, at sa susunod pang henerasyon."
+      },
+      "hints": {
+        "Trace the family from the oldest generation to their children, then one generation further.": "Sundan ang pamilya mula sa pinakamatandang henerasyon patungo sa kanilang mga anak, at sa susunod pang henerasyon."
+      }
+    },
+    "repair-family": {
+      "title": {
+        "en": "Repair the Family Connections",
+        "tl": "Ayusin ang mga Ugnayan ng Pamilya"
+      },
+      "instructions": {
+        "en": "Repair the Family Connections: Follow the partner and descent lines to repair the family connections.",
+        "tl": "Ayusin ang mga Ugnayan ng Pamilya: Sundan ang mga linya ng magkapareha at supling upang ayusin ang ugnayan."
+      },
+      "hint": {
+        "en": "A partner line connects a couple in the same generation. A descent line connects a parent or parents to their offspring.",
+        "tl": "Pinag-uugnay ng linya ng magkapareha ang pares sa iisang henerasyon. Pinag-uugnay ng linya ng pinagmulan ang mga magulang at supling."
+      },
+      "hints": {
+        "A partner line connects a couple in the same generation. A descent line connects a parent or parents to their offspring.": "Pinag-uugnay ng linya ng magkapareha ang pares sa iisang henerasyon. Pinag-uugnay ng linya ng pinagmulan ang mga magulang at supling."
+      }
+    },
+    "ancestry-guardian": {
+      "title": {
+        "en": "Ancestry Guardian Check",
+        "tl": "Pagsusuri ng Tagapagbantay ng Angkan"
+      },
+      "instructions": {
+        "en": "Ancestry Guardian Check: Read the question and use the evidence from this activity before choosing.",
+        "tl": "Pagsusuri ng Tagapagbantay ng Angkan: Basahin ang tanong at gamitin ang ebidensya ng gawain bago pumili."
+      },
+      "hint": {
+        "en": "Trace one parent-to-child connection at a time. Compare each person’s generation with the family story.",
+        "tl": "Sundan ang bawat ugnayan ng magulang at anak. Ihambing ang henerasyon ng bawat tao sa kuwento ng pamilya."
+      },
+      "hints": {
+        "Trace one parent-to-child connection at a time. Compare each person’s generation with the family story.": "Sundan ang bawat ugnayan ng magulang at anak. Ihambing ang henerasyon ng bawat tao sa kuwento ng pamilya.",
+        "Count how many parent-to-child steps connect Maya and Leo.": "Bilangin ang mga hakbang mula magulang patungo sa anak na nag-uugnay kina Maya at Leo.",
+        "A child is one generation later than their parents.": "Isang henerasyon pagkatapos ng magulang ang anak."
+      }
+    },
+    "finale": {
+      "instructions": {
+        "en": "Find the remaining eggs. Read each question before selecting and submitting an answer. Return to camp if a guardian follows you.",
+        "tl": "Hanapin ang natitirang itlog. Basahin ang tanong bago pumili at magsumite ng sagot. Bumalik sa kampo kapag may sumunod na tagapagbantay."
+      },
+      "hint": {
+        "en": "Trace one parent-to-child connection at a time. Compare each person’s generation with the family story.",
+        "tl": "Sundan ang bawat ugnayan ng magulang at anak. Ihambing ang henerasyon ng bawat tao sa kuwento ng pamilya."
+      }
+    }
   }
 }

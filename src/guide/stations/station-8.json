@@ -101,5 +101,153 @@
         }
       }
     ]
+  },
+  "variants": {
+    "wrong": [
+      {
+        "id": "check-evidence",
+        "expression": "think",
+        "text": {
+          "en": "Check the the inheritance model before trying again. Which detail needs another look?",
+          "tl": "Suriin ang modelo ng pagmamana bago subukang muli. Aling detalye ang dapat tingnan?"
+        }
+      },
+      {
+        "id": "try-one-step",
+        "expression": "think",
+        "text": {
+          "en": "Work through one step first. Use the clue below to test your reasoning.",
+          "tl": "Unahin ang isang hakbang. Gamitin ang pahiwatig upang suriin ang iyong pangangatwiran."
+        }
+      },
+      {
+        "id": "compare-clues",
+        "expression": "explain",
+        "text": {
+          "en": "Compare your choice with the the inheritance model. Look for a detail that supports it.",
+          "tl": "Ihambing ang napili sa modelo ng pagmamana. Hanapin ang detalyeng sumusuporta rito."
+        }
+      },
+      {
+        "id": "revise-step",
+        "expression": "encourage",
+        "text": {
+          "en": "You can revise this step. Read the clue and make a new decision.",
+          "tl": "Maaari mong baguhin ang hakbang na ito. Basahin ang pahiwatig at magpasya muli."
+        }
+      }
+    ],
+    "correct": [
+      {
+        "id": "evidence-check",
+        "expression": "celebrate",
+        "text": {
+          "en": "Your reasoning fits the the inheritance model. That step is complete.",
+          "tl": "Tugma ang iyong pangangatwiran sa modelo ng pagmamana. Tapos na ang hakbang na iyon."
+        }
+      },
+      {
+        "id": "connection-made",
+        "expression": "celebrate",
+        "text": {
+          "en": "You connected the clues. Use that idea in your next task.",
+          "tl": "Naiugnay mo ang mga palatandaan. Gamitin ang ideyang iyon sa susunod na gawain."
+        }
+      },
+      {
+        "id": "progress-saved",
+        "expression": "celebrate",
+        "text": {
+          "en": "Another discovery saved. You are ready for the next step.",
+          "tl": "Naka-save ang isa pang natuklasan. Handa ka na sa susunod na hakbang."
+        }
+      },
+      {
+        "id": "careful-observation",
+        "expression": "celebrate",
+        "text": {
+          "en": "Careful observation paid off. Keep building on what you found.",
+          "tl": "Nakatulong ang maingat na pagmamasid. Ipagpatuloy ang pagbuo ng iyong mga natuklasan."
+        }
+      }
+    ],
+    "idle": [
+      {
+        "id": "next-small-step",
+        "expression": "encourage",
+        "text": {
+          "en": "Need a starting point? Inspect the the inheritance model, or tap my speech icon for directions.",
+          "tl": "Kailangan ng panimulang hakbang? Suriin ang modelo ng pagmamana, o pindutin ang aking speech icon para sa gabay."
+        }
+      },
+      {
+        "id": "look-for-goal",
+        "expression": "explain",
+        "text": {
+          "en": "The next activity portal is your goal. I will guide you there.",
+          "tl": "Ang portal ng susunod na gawain ang iyong pupuntahan. Gagabayan kita roon."
+        }
+      }
+    ],
+    "talk": [
+      {
+        "id": "task-help",
+        "expression": "explain",
+        "text": {
+          "en": "Use the the inheritance model to decide your next step.",
+          "tl": "Gamitin ang modelo ng pagmamana sa pagpapasya sa susunod na hakbang."
+        }
+      }
+    ]
+  },
+  "activities": {
+    "matching-parents": {
+      "title": {
+        "en": "Choose the Fusion Parents",
+        "tl": "Piliin ang mga Magulang para sa Fusion"
+      },
+      "instructions": {
+        "en": "Choose the Fusion Parents: Compare the pets’ species and levels before selecting eligible parents.",
+        "tl": "Piliin ang mga Magulang para sa Fusion: Ihambing ang uri at antas ng mga alaga bago pumili ng maaaring magulang."
+      },
+      "hint": {
+        "en": "Compare both parent pets, read their alleles, and check the square before confirming. Pet fusion is a fictional game reward.",
+        "tl": "Ihambing ang parehong alaga, basahin ang kanilang allele, at suriin ang parisukat bago kumpirmahin. Kathang-isip na gantimpala sa laro ang pet fusion."
+      },
+      "hints": {
+        "Compare both parent pets, read their alleles, and check the square before confirming. Pet fusion is a fictional game reward.": "Ihambing ang parehong alaga, basahin ang kanilang allele, at suriin ang parisukat bago kumpirmahin. Kathang-isip na gantimpala sa laro ang pet fusion."
+      }
+    },
+    "master-warmup": {
+      "title": {
+        "en": "Genetics Master Warm-up",
+        "tl": "Paghahanda para sa Genetics Master"
+      },
+      "instructions": {
+        "en": "Genetics Master Warm-up: Read the question and use the evidence from this activity before choosing.",
+        "tl": "Paghahanda para sa Genetics Master: Basahin ang tanong at gamitin ang ebidensya ng gawain bago pumili."
+      },
+      "hint": {
+        "en": "Compare both parent pets, read their alleles, and check the square before confirming. Pet fusion is a fictional game reward.",
+        "tl": "Ihambing ang parehong alaga, basahin ang kanilang allele, at suriin ang parisukat bago kumpirmahin. Kathang-isip na gantimpala sa laro ang pet fusion."
+      },
+      "hints": {
+        "Compare both parent pets, read their alleles, and check the square before confirming. Pet fusion is a fictional game reward.": "Ihambing ang parehong alaga, basahin ang kanilang allele, at suriin ang parisukat bago kumpirmahin. Kathang-isip na gantimpala sa laro ang pet fusion.",
+        "A gamete carries one of the parent’s alleles for this modeled gene.": "Dala ng gamete ang isa sa mga allele ng magulang para sa gene sa modelo.",
+        "Combine the allele available from each parent.": "Pagsamahin ang allele na maaaring ibigay ng bawat magulang.",
+        "The dominant allele is expressed with either allele pair containing B.": "Naipapakita ang dominanteng allele sa alinmang pares na may B.",
+        "Separate the fictional pet reward from the biological model.": "Ihiwalay ang kathang-isip na gantimpala sa biyolohikal na modelo."
+      }
+    },
+    "finale": {
+      "instructions": {
+        "en": "Choose eligible parent pets, solve the inheritance model, then confirm fusion only when your solution is valid.",
+        "tl": "Pumili ng angkop na magulang na alaga, lutasin ang modelo, at kumpirmahin lamang ang fusion kapag wasto ang solusyon."
+      },
+      "hint": {
+        "en": "Compare both parent pets, read their alleles, and check the square before confirming. Pet fusion is a fictional game reward.",
+        "tl": "Ihambing ang parehong alaga, basahin ang kanilang allele, at suriin ang parisukat bago kumpirmahin. Kathang-isip na gantimpala sa laro ang pet fusion."
+      }
+    }
   }
 }

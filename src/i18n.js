@@ -4,7 +4,8 @@ import {TAGALOG_TEXT} from './tagalog-text.js';
 import {TAGALOG_BANK} from './tagalog-assessments.js';
 import {STATION_QUESTIONS} from './station-assessments.js';
 let language='en';
-const dictionary={...TAGALOG_TEXT,...TAGALOG_LESSONS,...TAGALOG_INTERFACE};
+const dictionary={...TAGALOG_TEXT,...TAGALOG_LESSONS,...TAGALOG_INTERFACE,
+ 'Mute Bhell':'I-mute si Bhell','Unmute Bhell':'Paganahin ang boses ni Bhell'};
 for(let station=0;station<8;station++)for(let question=0;question<10;question++){
  const original=STATION_QUESTIONS[station][question],translated=TAGALOG_BANK[station][question],shift=(station+question)%4;
  dictionary[original.prompt]=translated[0];

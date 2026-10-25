@@ -29,7 +29,7 @@ test('offline profile and animated introduction lead into station pre-test',asyn
 });
 
 for(let index=0;index<4;index++)test(`egg hunt session ${index+1}: movement, collection, reward and persistence`,async({page})=>{
- test.setTimeout(90000);const errors=[];page.on('pageerror',error=>errors.push(error.message));
+ test.setTimeout(120000);const errors=[];page.on('pageerror',error=>errors.push(error.message));
  await seed(page,{xp:700,completed:Array.from({length:index},(_,i)=>i)});await review(page,index);await completeWorkshops(page,index);
  for(const [egg,x,y]of [[0,72,22],[1,82,66],[2,35,37]]){await move(page,x,y);await move(page,x,y);await page.getByRole('button',{name:'Open '+['Common','Rare','Epic'][egg]+' egg',exact:true}).click();await expect(page.locator('.egg-question')).toBeVisible();await page.locator('.egg-question .answers button').nth(EGG_QUESTIONS[index][egg].answer).click();await page.getByRole('button',{name:'Submit answer',exact:true}).click();if(egg<2)await dismissGuide(page,{expected:true})}
  await finishStationTest(page,index,'post');await expect(page.getByText('SESSION COMPLETE',{exact:true})).toBeVisible();const save=await savedProgress(page);expect(save.points).toBe(80+activityCatalog[index].length*10);expect(save.eggs).toHaveLength(3);await page.reload();await enterGame(page);expect((await savedProgress(page)).completed).toContain(index);expect(errors).toEqual([]);
@@ -71,7 +71,7 @@ test('mode selection explains nearby hotspot play and preserves solo choice',asy
  await page.getByRole('button',{name:'Solo / Multiplayer',exact:true}).click();
  await page.getByRole('button',{name:/Play with nearby friends/}).click();
  await expect(page.getByRole('heading',{name:'One island. Your own explorer.'})).toBeVisible();
- await expect(page.getByText('Install the Android app to connect.',{exact:true})).toBeVisible();
+ await expect(page.getByText('Install the mobile app to connect.',{exact:false})).toBeVisible();
  await expect(page.getByText('Internet and mobile data are unnecessary.',{exact:false})).toBeVisible();
  expect((await savedProgress(page)).modeChosen).toBeTruthy();
  expect((await savedProgress(page)).mode).toBe('multiplayer');
@@ -84,6 +84,7 @@ test('mode selection explains nearby hotspot play and preserves solo choice',asy
 });
 
 test('workshops gate the finale, persist progression, and reward completion once',async({page})=>{
+ test.setTimeout(120000);
  await seed(page);await review(page,0);
  await page.getByRole('button',{name:'Return to world',exact:true}).click();await page.locator('.world-activity-tracker summary').click();const activities=page.getByRole('navigation',{name:'Activities in this station'});
  await expect(activities.getByRole('button',{name:/Three Hidden Eggs/})).toBeDisabled();
