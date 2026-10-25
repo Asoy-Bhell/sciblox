@@ -129,7 +129,7 @@ export default function AdventureWorld3D({position,guardian,walking=false,facing
   };
   const down=event=>{pointerStart={x:event.clientX,y:event.clientY}};
   const up=event=>{
-   if(!pointerStart||Math.hypot(event.clientX-pointerStart.x,event.clientY-pointerStart.y)>10)return;
+   if(cameraRig.didDrag()||!pointerStart||Math.hypot(event.clientX-pointerStart.x,event.clientY-pointerStart.y)>10)return;
    pointerStart=null;const target=intersect(event);if(target)latest.current.onEgg?.(target.userData.eggIndex);
   };
   const hover=event=>{if(event.pointerType!=='touch')renderer.domElement.style.cursor=intersect(event)?'pointer':'default'};
@@ -140,6 +140,7 @@ export default function AdventureWorld3D({position,guardian,walking=false,facing
   return {
    resize(width,height){aspect=width/Math.max(height,1)},
    update(delta,time){
+    cameraRig.update(delta);
     const data=latest.current,p=worldPoint(data.position),g=worldPoint(data.guardian),animated=data.motion;
     const identity=JSON.stringify([data.outfit,data.avatar,data.gender,data.picture,data.playerName]);if(identity!==explorerOutfit){scene.remove(explorer);disposeObject(explorer);explorer=playerModel(data);scene.add(explorer);explorerOutfit=identity}animateExplorer(guide,{talking:animated,facing:'down',time:animated?time:0,delta});
     explorer.position.set(p.x,cameraRig.height(),p.z);explorer.visible=data.cameraMode!=='first';animateExplorer(explorer,{walking:data.walking&&animated,facing:data.facing,talking:false,time:animated?time:0,delta});
@@ -170,10 +171,10 @@ export default function AdventureWorld3D({position,guardian,walking=false,facing
     });
     if(data.cameraMode==='overview'){
      const scale=Math.max(1,1/aspect);desired.set(2,30*scale,26*scale);look.set(0,0,0);
-     }else if(data.cameraMode==='first'){desired.set(p.x,2.6+cameraRig.height(),p.z);look.set(p.x-Math.sin(cameraRig.yaw)*10,2.6-cameraRig.pitch*8,p.z-Math.cos(cameraRig.yaw)*10)}
-    else{desired.set(p.x+Math.sin(cameraRig.yaw)*8,5.2+cameraRig.pitch*3,p.z+Math.cos(cameraRig.yaw)*8);look.set(p.x,1.5+cameraRig.height(),p.z)}
+     }else if(data.cameraMode==='first'){desired.set(p.x,2.6,p.z);look.set(p.x-Math.sin(cameraRig.yaw)*10,2.6-cameraRig.pitch*8,p.z-Math.cos(cameraRig.yaw)*10)}
+    else{desired.set(p.x+Math.sin(cameraRig.yaw)*8,5.2+cameraRig.pitch*3,p.z+Math.cos(cameraRig.yaw)*8);look.set(p.x,1.5,p.z)}
     data.onCameraHeading?.(data.cameraMode==='first'?cameraRig.yaw:0);
-    camera.position.lerp(desired,lastMode===data.cameraMode?1-Math.exp(-delta*7):.28);camera.lookAt(look);lastMode=data.cameraMode;
+    cameraRig.apply(camera,desired,look,delta,data.cameraMode);
    },
    dispose(){cameraRig.dispose();renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointermove',hover)}
   };

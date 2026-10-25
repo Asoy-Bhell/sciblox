@@ -65,7 +65,13 @@ The iOS project is under `ios/`. On macOS with Xcode installed, run `npm ci`, `n
 
 ## Development checks
 
-`npm test` runs unit checks and browser scenarios. The current Playwright configuration uses Microsoft Edge at a Windows-specific path; adjust `playwright.config.js` for your installed browser before running on another machine. Native integration tests additionally require an Android emulator or device.
+`npm test` runs unit checks and browser scenarios. On Windows the configuration uses Microsoft Edge when installed; otherwise install Playwright Chromium with `npx playwright install chromium`. You may set `PLAYWRIGHT_BROWSER_PATH` for another compatible browser executable. Native integration tests additionally require an Android emulator or device.
+
+The current human avatars use simple blocky geometry, following the selected
+art direction. World camera movement uses matched aim/position smoothing,
+without automatic walking bob. Guardian status is a small blue alert. Settings
+provides an offline voice chooser and preview, with separate English/Tagalog
+preferences; the phone's installed voices determine the available sound.
 
 ## Authors
 

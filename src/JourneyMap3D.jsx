@@ -143,7 +143,7 @@ export default function JourneyMap3D({stations,completed=[],xp=0,onSelect,motion
    return raycaster.intersectObjects(portalNodes.map(node=>node.target),false)[0]?.object;
   };
   const down=event=>{pointerDown={x:event.clientX,y:event.clientY}};
-  const up=event=>{if(!pointerDown||Math.hypot(event.clientX-pointerDown.x,event.clientY-pointerDown.y)>10)return;pointerDown=null;const target=portalHit(event);if(target)activate(target.userData.station)};
+  const up=event=>{if(cameraRig.didDrag()||!pointerDown||Math.hypot(event.clientX-pointerDown.x,event.clientY-pointerDown.y)>10)return;pointerDown=null;const target=portalHit(event);if(target)activate(target.userData.station)};
   const hover=event=>{if(event.pointerType!=='touch')renderer.domElement.style.cursor=portalHit(event)?'pointer':'default'};
   const keyDown=event=>{if(document.querySelector('[role="dialog"]'))return;
    if(latest.current.preview||document.querySelector('[role="dialog"]')||/INPUT|SELECT|TEXTAREA/.test(event.target.tagName))return;
@@ -163,6 +163,7 @@ export default function JourneyMap3D({stations,completed=[],xp=0,onSelect,motion
    still:preview,
    resize(width,height){aspect=width/Math.max(height,1)},
    update(delta,time){
+    cameraRig.update(delta);
     const data=latest.current,dt=Math.min(delta,.12);
     let dx=state.direction.x+(state.keys.has('arrowright')||state.keys.has('d')?1:0)-(state.keys.has('arrowleft')||state.keys.has('a')?1:0);
     let dz=state.direction.z+(state.keys.has('arrowdown')||state.keys.has('s')?1:0)-(state.keys.has('arrowup')||state.keys.has('w')?1:0);
@@ -189,9 +190,9 @@ export default function JourneyMap3D({stations,completed=[],xp=0,onSelect,motion
      if(key!==lastNearby){lastNearby=key;setNearby(near?near.index:null);setNotice('')}
     }
     if(data.cameraMode==='overview'){const scale=Math.max(1,1/aspect);desired.set(2,39*scale,33*scale);look.set(0,0,0)}
-    else if(data.cameraMode==='first'){desired.set(state.player.x,2.35+cameraRig.height(),state.player.z);look.set(state.player.x-Math.sin(cameraRig.yaw)*10,2.35-cameraRig.pitch*8,state.player.z-Math.cos(cameraRig.yaw)*10)}
-    else{desired.set(state.player.x+Math.sin(cameraRig.yaw)*7.6,4.7+cameraRig.pitch*3,state.player.z+Math.cos(cameraRig.yaw)*7.6);look.set(state.player.x,1.5+cameraRig.height(),state.player.z)}
-    camera.position.lerp(desired,1-Math.exp(-delta*7));camera.lookAt(look);
+    else if(data.cameraMode==='first'){desired.set(state.player.x,2.35,state.player.z);look.set(state.player.x-Math.sin(cameraRig.yaw)*10,2.35-cameraRig.pitch*8,state.player.z-Math.cos(cameraRig.yaw)*10)}
+    else{desired.set(state.player.x+Math.sin(cameraRig.yaw)*7.6,4.7+cameraRig.pitch*3,state.player.z+Math.cos(cameraRig.yaw)*7.6);look.set(state.player.x,1.5,state.player.z)}
+    cameraRig.apply(camera,desired,look,delta,data.cameraMode);
    },
    dispose(){
     cameraRig.dispose();renderer.domElement.removeEventListener('pointerdown',down);renderer.domElement.removeEventListener('pointerup',up);renderer.domElement.removeEventListener('pointermove',hover);

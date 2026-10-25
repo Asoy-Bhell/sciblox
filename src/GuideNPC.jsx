@@ -9,11 +9,11 @@ const COPY={en:{guide:'Bhell NPC guide',next:'Next',skip:'Skip',hear:'Hear Bhell
 
 // Controlled visibility; a new message key remounts this component. Authored
 // captions remain complete even with motion disabled or no voice installed.
-export default function GuideNPC({scenes=[],trigger='intro',language='en',motion=true,sound=true,variables={},onClose,onSoundChange,autoSpeak=true}){
+export default function GuideNPC({scenes=[],trigger='intro',language='en',motion=true,sound=true,variables={},onClose,onSoundChange,autoSpeak=true,voiceName}){
   const [index,setIndex]=useState(0),[showHint,setShowHint]=useState(false);
   const scene=scenes[index]||scenes[0],copy=COPY[language]||COPY.en,id=useId();
   const text=localizeGuide(scene?.text,language,variables),hint=localizeGuide(scene?.hint,language,variables);
-  const narration=useOfflineNarration({sound,language,sceneKey:`${scene?.id}-${text}-${showHint}`});
+  const narration=useOfflineNarration({sound,language,voiceName,sceneKey:`${scene?.id}-${text}-${showHint}`});
   const expression=EXPRESSIONS[scene?.expression]?scene.expression:'explain';
   useEffect(()=>{setShowHint(trigger==='wrong')},[trigger]);
   useEffect(()=>{

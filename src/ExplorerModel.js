@@ -1,9 +1,11 @@
 import * as THREE from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {avatarAppearance} from './avatar-options.js';
+import {createBlockExplorer} from './BlockExplorer.js';
 
 // Articulated, rounded adventure characters. Each model owns its resources.
 export function createAdventureExplorer({color='#2465c9',outfit='Explorer',gender='female',picture}={}){
+ if(outfit!=='Guide')return createBlockExplorer({color,picture,gender,outfit});
  const root=new THREE.Group();root.name=outfit==='Guide'?'Bhell':'Human explorer';
  const look=avatarAppearance(picture,gender),guide=outfit==='Guide',female=gender!=='male'&&gender!=='boy',skin=guide?'#e8ad7c':look.skin,hair=guide?'#29202b':look.hair,navy='#16335e',white='#f4f9ff';
  if(picture&&!guide)color=look.color;
@@ -24,10 +26,27 @@ export function createAdventureExplorer({color='#2465c9',outfit='Explorer',gende
  box(body,[.60,.66,.25],color,0,1.53,-.34);box(body,[.48,.35,.12],'#4089e9',0,1.38,-.50);box(body,[.22,.08,.04],'#9fefff',0,1.39,-.57);
  for(const side of [-1,1])box(body,[.09,.66,.08],'#347de0',side*.24,1.57,.24);
  const head=joint(body,'head',0,2.25,0);
- ball(head,[.48,.53,.42],skin,0,.06,0);ball(head,[.45,.42,.43],hair,0,.24,-.12);
- for(const side of [-1,1]){ball(head,[.08,.12,.07],skin,side*.47,.04,0);ball(head,[.115,.15,.055],white,side*.18,.07,.367);ball(head,[.073,.105,.035],'#342628',side*.18,.06,.410);ball(head,[.024,.034,.014],white,side*.18-.016,.10,.44);ball(head,[.085,.028,.025],hair,side*.18,.26,.36);ball(head,[.07,.027,.014],'#e58b84',side*.30,-.13,.35)}
- ball(head,[.065,.065,.075],'#d6986d',0,-.06,.40);
- const mouth=box(head,[.13,.028,.025],'#763f43',0,-.23,.37);ball(head,[.09,.022,.02],white,0,-.224,.388);
+ // Smaller, inset almond eyes and a tapered face replace the protruding eyes.
+ const face=ball(head,[.46,.51,.40],skin,0,.06,0);
+ const faceGeometry=face.geometry.clone(),positions=faceGeometry.attributes.position;
+ for(let i=0;i<positions.count;i++){const y=positions.getY(i);if(y<0)positions.setX(i,positions.getX(i)*(1+y*.13))}
+ faceGeometry.computeVertexNormals();face.geometry=faceGeometry;
+ ball(head,[.455,.40,.415],hair,0,.25,-.13);
+ for(const side of [-1,1]){
+  ball(head,[.067,.10,.065],skin,side*.45,.025,0);
+  const eye=ball(head,[.102,.071,.030],white,side*.18,.075,.365);eye.rotation.z=side*.10;
+  ball(head,[.047,.061,.024],'#65412e',side*.18,.072,.393);
+  ball(head,[.026,.044,.013],'#231e27',side*.18,.072,.412);
+  ball(head,[.015,.018,.008],white,side*.18-.014,.096,.425);
+  const brow=ball(head,[.088,.016,.014],hair,side*.18,.205,.365);brow.rotation.z=side*-.10;
+  ball(head,[.055,.021,.009],'#df9687',side*.29,-.10,.306);
+ }
+ ball(head,[.041,.045,.045],skin,0,-.043,.395);
+ // A curved smile, with a narrow tooth highlight, remains an animated rig mesh.
+ const smile=new THREE.Shape();smile.moveTo(-.12,-.13);smile.quadraticCurveTo(0,-.19,.12,-.13);smile.quadraticCurveTo(.07,-.255,0,-.255);smile.quadraticCurveTo(-.08,-.25,-.12,-.13);
+ const mouth=new THREE.Mesh(new THREE.ShapeGeometry(smile,16),material('#743e3b'));mouth.position.z=.366;head.add(mouth);
+ const teeth=new THREE.Shape();teeth.moveTo(-.095,-.15);teeth.quadraticCurveTo(0,-.19,.095,-.15);teeth.lineTo(.075,-.18);teeth.quadraticCurveTo(0,-.212,-.075,-.18);teeth.closePath();
+ const toothMesh=new THREE.Mesh(new THREE.ShapeGeometry(teeth,12),material(white));toothMesh.position.z=.368;head.add(toothMesh);
  const ponytail=joint(head,'ponytail',0,.07,-.42);ball(ponytail,[.22,.44,.20],hair,0,-.15,-.04);ball(ponytail,[.17,.27,.16],hair,0,-.54,-.06);ponytail.visible=female&&!guide;
  if(female||guide){for(const side of [-1,1])ball(head,[.15,guide?.33:.44,.32],hair,side*.40,-.13,-.10);ball(head,[.30,.15,.29],hair,-.19,.38,.12)}
  else for(let i=0;i<5;i++){const tuft=ball(head,[.18,.15,.20],hair,-.28+i*.14,.52+Math.sin(i)*.04,.02);tuft.rotation.z=-.3}
@@ -35,7 +54,7 @@ export function createAdventureExplorer({color='#2465c9',outfit='Explorer',gende
  if(!guide&&look.style==='curly')for(let i=0;i<10;i++){const angle=i/10*Math.PI*2;ball(head,[.15,.16,.14],hair,Math.cos(angle)*.35,.43+Math.sin(angle)*.03,Math.sin(angle)*.27)}
  if(!guide&&look.style==='long'){ponytail.visible=false;for(const side of [-1,1])ball(head,[.17,.55,.25],hair,side*.40,-.24,-.10)}
  if(!guide&&look.style==='curly')ponytail.visible=false;
- if(!guide&&look.glasses){for(const side of [-1,1]){const frame=new THREE.Mesh(new THREE.TorusGeometry(.14,.018,6,20),material('#173b65'));frame.position.set(side*.18,.07,.44);head.add(frame)}box(head,[.08,.025,.02],'#173b65',0,.09,.44)}
+ if(!guide&&look.glasses){for(const side of [-1,1]){const frame=new THREE.Mesh(new THREE.TorusGeometry(.115,.013,6,24),material('#173b65'));frame.scale.y=.83;frame.position.set(side*.18,.075,.435);head.add(frame)}box(head,[.10,.018,.02],'#173b65',0,.08,.435)}
  if(outfit==='Shades')for(const side of [-1,1])box(head,[.27,.18,.055],navy,side*.18,.08,.43);
  if(outfit==='Scarf'){box(body,[.68,.12,.47],'#ffad4d',0,1.90,0);box(body,[.16,.34,.05],'#ffad4d',-.15,1.74,.27)}
  if(outfit==='Top hat'){box(head,[1,.07,.8],navy,0,.62,0);box(head,[.54,.39,.53],navy,0,.82,0)}

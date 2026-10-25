@@ -1,2 +1,5 @@
 import {defineConfig} from '@playwright/test';
-export default defineConfig({webServer:{command:'npm.cmd run dev -- --port 5173 --strictPort',url:'http://127.0.0.1:5173',reuseExistingServer:true,timeout:30000},testDir:'./tests',testMatch:['journey.spec.js','three-world.spec.js','mobile-upgrade.spec.js','guide-npc.spec.js'],timeout:45000,workers:1,use:{baseURL:'http://127.0.0.1:5173',launchOptions:{executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',args:['--headless','--use-angle=swiftshader','--enable-unsafe-swiftshader']}}});
+import {existsSync} from 'node:fs';
+const edge='C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
+const browser=process.env.PLAYWRIGHT_BROWSER_PATH||(process.platform==='win32'&&existsSync(edge)?edge:undefined);
+export default defineConfig({webServer:{command:(process.platform==='win32'?'npm.cmd':'npm')+' run test:serve',url:'http://127.0.0.1:4173',reuseExistingServer:true,timeout:30000},testDir:'./tests',testMatch:['journey.spec.js','three-world.spec.js','mobile-upgrade.spec.js','guide-npc.spec.js','controls-classroom.spec.js'],timeout:45000,workers:1,use:{baseURL:'http://127.0.0.1:4173',launchOptions:{executablePath:browser,args:['--headless','--use-angle=swiftshader','--enable-unsafe-swiftshader']}}});

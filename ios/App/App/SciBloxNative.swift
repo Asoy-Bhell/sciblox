@@ -19,7 +19,7 @@ final class SciBloxViewController: CAPBridgeViewController {
 @objc(NarratorPlugin)
 public final class NarratorPlugin: CAPPlugin, CAPBridgedPlugin, AVSpeechSynthesizerDelegate {
     public let identifier = "NarratorPlugin", jsName = "Narrator"
-    public let pluginMethods = [CAPPluginMethod(name: "speak", returnType: CAPPluginReturnPromise), CAPPluginMethod(name: "stop", returnType: CAPPluginReturnPromise)]
+    public let pluginMethods = [CAPPluginMethod(name: "speak", returnType: CAPPluginReturnPromise), CAPPluginMethod(name: "stop", returnType: CAPPluginReturnPromise), CAPPluginMethod(name: "voices", returnType: CAPPluginReturnPromise)]
     private let speaker = AVSpeechSynthesizer()
     override public func load() { speaker.delegate = self }
     @objc func speak(_ call: CAPPluginCall) { DispatchQueue.main.async {
@@ -29,15 +29,24 @@ public final class NarratorPlugin: CAPPlugin, CAPBridgedPlugin, AVSpeechSynthesi
             let language = voice.language.lowercased()
             return tagalog ? language.hasPrefix("fil") || language.hasPrefix("tl") : language.hasPrefix("en")
         }
-        guard let voice = voices.sorted(by: { ($0.gender == .female ? 1 : 0) > ($1.gender == .female ? 1 : 0) }).first,
+        let requested = call.getString("voiceName") ?? ""
+        guard let voice = voices.first(where: { $0.identifier == requested }) ?? voices.sorted(by: { ($0.gender == .female ? 1 : 0) > ($1.gender == .female ? 1 : 0) }).first,
               let text = call.getString("text"), !text.isEmpty else { call.resolve(["spoken": false]); return }
         // AVSpeechSynthesizer uses voices installed on this device; no external
         // audio service, downloaded script, or imitation voice is requested.
         let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = voice; utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.94; utterance.pitchMultiplier = 1.04
+        utterance.voice = voice; utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.90; utterance.pitchMultiplier = 1.0
         self.speaker.speak(utterance); call.resolve(["spoken": true, "voiceName": voice.name, "recordedVoice": false])
     } }
     @objc func stop(_ call: CAPPluginCall) { DispatchQueue.main.async { self.speaker.stopSpeaking(at: .immediate); call.resolve() } }
+    @objc func voices(_ call: CAPPluginCall) {
+        let tagalog = call.getString("language") == "tl"
+        let installed = AVSpeechSynthesisVoice.speechVoices().filter { voice in
+            let lang = voice.language.lowercased()
+            return tagalog ? lang.hasPrefix("tl") || lang.hasPrefix("fil") : lang.hasPrefix("en")
+        }.map { ["id": $0.identifier, "name": $0.name, "language": $0.language] }
+        call.resolve(["voices": installed])
+    }
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) { notifyListeners("finished", data: [:]) }
     public func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) { notifyListeners("finished", data: [:]) }
 }

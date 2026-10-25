@@ -1,4 +1,15 @@
 const rows=`
+Guardian chase · Return to camp|May tagapagbantay · Bumalik sa kampo
+Jump|Tumalon
+Switch to third person|Lumipat sa pananaw sa likod
+Switch to first person|Lumipat sa pananaw ng karakter
+Mute Bhell|Patahimikin si Bhell
+Unmute Bhell|Pakinggan si Bhell
+Play solo anytime, or join the same world on up to four phones. Each player moves their own character while the team solves the expedition together. Each learner completes their own pre-test and post-test.|Maglaro nang mag-isa o kasama ang hanggang apat na manlalaro sa iisang mundo. Bawat isa ay may sariling karakter at sariling pauna at panghuling pagsusulit habang magkasamang tinatapos ang mga hamon.
+Connect all phones to the same Wi-Fi or one phone’s hotspot. Internet and mobile data are unnecessary.|Ikonekta ang lahat ng telepono sa parehong Wi-Fi o hotspot. Hindi kailangan ang internet o mobile data.
+Install the mobile app to connect.|I-install ang mobile app upang makakonekta.
+The browser previews solo gameplay. Hotspot play connects directly between phones, without an internet server.|Pansariling laro ang makikita sa browser. Direktang nagkokonekta ang mga telepono sa hotspot nang walang internet server.
+Choose a room above, or enter the host’s local address if it does not appear. On iPhone, enter the host address manually. Some Wi-Fi networks block connections between phones.|Pumili ng silid o ilagay ang lokal na address ng host. Sa iPhone, manu-manong ilagay ang address. May mga Wi-Fi network na humaharang sa koneksyon ng mga telepono.
 Next|Susunod
 Pre-test|Paunang pagsusulit
 Post-test|Panghuling pagsusulit

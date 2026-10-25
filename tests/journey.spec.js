@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 import {EMPTY} from '../src/journey-state.js';
 import {cross,CROSSES,EGG_QUESTIONS,ASSESSMENT} from '../src/journey-data.js';
 import {activityCatalog} from '../src/station-activities-data.js';
-import {completeWorkshops,savedProgress,solveActivity,solveFamilyTree,finishStationTest,goHome,openActivity} from './activity-helpers.js';
+import {completeWorkshops,dismissGuide,savedProgress,solveActivity,solveFamilyTree,finishStationTest,goHome,openActivity} from './activity-helpers.js';
 
 test('family portraits and symbols highlight errors without filling answers',async({page})=>{
  await seed(page,{xp:700,completed:[0,1,2]});await review(page,3);
@@ -31,13 +31,13 @@ test('offline profile and animated introduction lead into station pre-test',asyn
 for(let index=0;index<4;index++)test(`egg hunt session ${index+1}: movement, collection, reward and persistence`,async({page})=>{
  test.setTimeout(90000);const errors=[];page.on('pageerror',error=>errors.push(error.message));
  await seed(page,{xp:700,completed:Array.from({length:index},(_,i)=>i)});await review(page,index);await completeWorkshops(page,index);
- for(const [egg,x,y]of [[0,72,22],[1,82,66],[2,35,37]]){await move(page,x,y);await move(page,x,y);await page.getByRole('button',{name:'Open '+['Common','Rare','Epic'][egg]+' egg',exact:true}).click();await expect(page.locator('.egg-question')).toBeVisible();await page.locator('.egg-question .answers button').nth(EGG_QUESTIONS[index][egg].answer).click();await page.getByRole('button',{name:'Submit answer',exact:true}).click()}
+ for(const [egg,x,y]of [[0,72,22],[1,82,66],[2,35,37]]){await move(page,x,y);await move(page,x,y);await page.getByRole('button',{name:'Open '+['Common','Rare','Epic'][egg]+' egg',exact:true}).click();await expect(page.locator('.egg-question')).toBeVisible();await page.locator('.egg-question .answers button').nth(EGG_QUESTIONS[index][egg].answer).click();await page.getByRole('button',{name:'Submit answer',exact:true}).click();if(egg<2)await dismissGuide(page,{expected:true})}
  await finishStationTest(page,index,'post');await expect(page.getByText('SESSION COMPLETE',{exact:true})).toBeVisible();const save=await savedProgress(page);expect(save.points).toBe(80+activityCatalog[index].length*10);expect(save.eggs).toHaveLength(3);await page.reload();await enterGame(page);expect((await savedProgress(page)).completed).toContain(index);expect(errors).toEqual([]);
 });
 
 test('wrong egg answer triggers guardian chase and preserves safe retry',async({page})=>{
  test.setTimeout(90000);await seed(page);await review(page,0);await completeWorkshops(page,0);await move(page,72,22);await page.getByRole('button',{name:'Open Common egg',exact:true}).click();await page.locator('.egg-question .answers button').nth(1).click();await page.getByRole('button',{name:'Submit answer',exact:true}).click();
- await expect(page.getByRole('alert')).toContainText('Guardian chase');await expect(page.locator('.egg-question')).toHaveCount(0);await page.getByRole('button',{name:'Run to Safe Spot',exact:false}).click();await expect(page.getByRole('alert')).toHaveCount(0);
+ await dismissGuide(page,{expected:true});await expect(page.getByRole('alert')).toContainText('Guardian chase');await expect(page.locator('.egg-question')).toHaveCount(0);await page.getByRole('button',{name:'Run to Safe Spot',exact:false}).click();await expect(page.getByRole('alert')).toHaveCount(0);
  await move(page,72,22);await page.getByRole('button',{name:'Open Common egg',exact:true}).click();await expect(page.locator('.egg-question .answers button').nth(1)).toBeDisabled();await page.locator('.egg-question .answers button').nth(0).click();await page.getByRole('button',{name:'Submit answer',exact:true}).click();expect((await savedProgress(page)).mistakes[0]).toBe(1);
 });
 
@@ -49,7 +49,7 @@ for(const index of [4,5,6])test(`lab session ${index+1}: three crosses and valid
   if(index<6){['BB','Bb','bb'].forEach((g,i)=>entries['Number of '+g+' offspring']=String(result.counts[i]));entries['Dominant phenotype count']=String(result.dominant)}
   if(index>=5){entries['Genotype ratio BB:Bb:bb']=result.genotype;entries['Phenotype ratio dominant:recessive']=result.phenotype}
   if(index===6){['BB','Bb','bb'].forEach((g,i)=>entries[g+' offspring (%)']=String(result.percent[i]));entries['Dominant offspring (%)']=String(result.dominantPercent);entries['Recessive offspring (%)']=String(result.recessivePercent)}
-  for(const [label,value]of Object.entries(entries))await page.getByLabel(label,{exact:true}).fill(value);await page.getByRole('button',{name:'Check round',exact:true}).click();await expect.poll(async()=>(await savedProgress(page)).run.round).toBe(round+1);
+  for(const [label,value]of Object.entries(entries))await page.getByLabel(label,{exact:true}).fill(value);await page.getByRole('button',{name:'Check round',exact:true}).click();await expect.poll(async()=>(await savedProgress(page)).run.round).toBe(round+1);if(round<2)await dismissGuide(page,{expected:true});
  }
  await finishStationTest(page,index,'post');await expect(page.getByText('SESSION COMPLETE',{exact:true})).toBeVisible();expect((await savedProgress(page)).points).toBe(60+activityCatalog[index].length*10);
 });
@@ -57,7 +57,7 @@ for(const index of [4,5,6])test(`lab session ${index+1}: three crosses and valid
 test('fusion validates before consuming matching parents and unlocks the post-test',async({page})=>{
  test.setTimeout(90000);await seed(page,{xp:700,completed:[0,1,2,3,4,5,6],pets:[{id:'a',species:'Owl',level:1,rarity:2,genotype:'Bb'},{id:'b',species:'Owl',level:1,rarity:2,genotype:'Bb'}]});await review(page,7);await completeWorkshops(page,7);await page.getByLabel('Parent 1',{exact:true}).selectOption('a');await page.getByLabel('Parent 2',{exact:true}).selectOption('b');
  const entries={'Offspring box 1':'BB','Offspring box 2':'Bb','Offspring box 3':'Bb','Offspring box 4':'bb','Genotype ratio BB:Bb:bb':'1:2:1','Phenotype ratio dominant:recessive':'3:1','BB offspring (%)':'25','Bb offspring (%)':'50','bb offspring (%)':'25','Dominant offspring (%)':'75','Recessive offspring (%)':'25'};
- for(const [label,value]of Object.entries(entries))await page.getByLabel(label,{exact:true}).fill(value);await page.getByRole('button',{name:'Check fusion solution'}).click();expect((await savedProgress(page)).pets).toHaveLength(2);await page.getByRole('button',{name:'Confirm fusion of both pets',exact:false}).click();await finishStationTest(page,7,'post');await expect(page.getByText('SESSION COMPLETE',{exact:true})).toBeVisible();const save=await savedProgress(page);expect(save.pets).toHaveLength(1);expect(save.pets[0].rarity).toBe(3);expect(save.badges).toContain('Genetics Master');expect(save.stationAssessments[7].post).toBe(10);
+ for(const [label,value]of Object.entries(entries))await page.getByLabel(label,{exact:true}).fill(value);await page.getByRole('button',{name:'Check fusion solution'}).click();expect((await savedProgress(page)).pets).toHaveLength(2);await dismissGuide(page,{expected:true});await page.getByRole('button',{name:'Confirm fusion of both pets',exact:false}).click();await finishStationTest(page,7,'post');await expect(page.getByText('SESSION COMPLETE',{exact:true})).toBeVisible();const save=await savedProgress(page);expect(save.pets).toHaveLength(1);expect(save.pets[0].rarity).toBe(3);expect(save.badges).toContain('Genetics Master');expect(save.stationAssessments[7].post).toBe(10);
 });
 
 test('phone reviewers, economy, animated hatchery and pet reactions work',async({page})=>{

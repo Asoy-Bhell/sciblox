@@ -36,15 +36,16 @@ export function animateExplorer(group,{walking=false,facing='right',talking=fals
   const difference=Math.atan2(Math.sin(yaw-group.rotation.y),Math.cos(yaw-group.rotation.y));
   group.rotation.y+=difference*(delta>0?Math.min(1,delta*14):1);
   const stride=walking?Math.sin(time*9):0;
-  rig.body.position.y=walking?Math.abs(Math.sin(time*9))*.045:(Math.sin(time*2)+1)*.009;
-  rig.body.rotation.z=walking?stride*.025:Math.sin(time*1.6)*.009;
+  const blocky=group.userData.style==='blocky';
+  rig.body.position.y=blocky?0:walking?Math.abs(Math.sin(time*9))*.045:(Math.sin(time*2)+1)*.009;
+  rig.body.rotation.z=blocky?0:walking?stride*.025:Math.sin(time*1.6)*.009;
   rig.leftLeg.rotation.x=stride*.62;rig.rightLeg.rotation.x=-stride*.62;
   rig.leftArm.rotation.x=-stride*.54+(talking?-.22-Math.sin(time*4)*.13:0);
   rig.rightArm.rotation.x=stride*.54+(talking?-.28+Math.sin(time*3.6)*.14:0);
   rig.leftArm.rotation.z=talking?-.18-Math.sin(time*2.7)*.08:-.025;
   rig.rightArm.rotation.z=talking?.26+Math.sin(time*3)*.10:.025;
-  rig.head.rotation.x=talking?Math.sin(time*3.2)*.035:Math.sin(time*1.7)*.012;
-  rig.head.rotation.y=talking?Math.sin(time*2)*.055:Math.sin(time*.9)*.02;
+  rig.head.rotation.x=blocky?0:talking?Math.sin(time*3.2)*.035:Math.sin(time*1.7)*.012;
+  rig.head.rotation.y=blocky?0:talking?Math.sin(time*2)*.055:Math.sin(time*.9)*.02;
   rig.ponytail.rotation.x=walking?stride*.11:Math.sin(time*1.8)*.035;
   rig.mouth.scale.y=talking?1.25+Math.abs(Math.sin(time*9)) *2.5:1;
 }

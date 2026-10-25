@@ -12,7 +12,7 @@ function portrait(picture){
  scene.background=new THREE.Color('#d9f1ff');scene.add(new THREE.HemisphereLight('#f7fcff','#6f8aa3',2.6));
  const light=new THREE.DirectionalLight('#fff1dd',3);light.position.set(-2,5,5);scene.add(light);
  const model=createPlayerAvatar({gender:look.gender,picture:look.id});scene.add(model);
- camera.position.set(0,2.4,2.9);camera.lookAt(0,2.12,0);renderer.render(scene,camera);
+ camera.position.set(.30,2.42,3.7);camera.lookAt(0,2.14,0);renderer.render(scene,camera);
  const url=renderer.domElement.toDataURL('image/png');cache.set(picture,url);disposeObject(model);scene.clear();return url;
 }
 // Cached snapshots of the actual world rig, using one shared graphics context.

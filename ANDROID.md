@@ -76,3 +76,36 @@ Build/release references: [Capacitor Android environment](https://capacitorjs.co
 Install artifacts/SciBlox-1.5-debug.apk as an update over the same-signed build. Check English/Tagalog after restart, Male/Female world characters, portrait tests and reviewer, landscape world activities, and reviewer lockout after three uses. Check two physical phones on one hotspot before release. Do not uninstall to update unless you intend to remove local progress.
 
 The 1.5 APK uses the same debug certificate as artifacts/SciBlox-1.4-debug.apk (SHA-256 bf9c34de64b893009cc837566baf9face2b7e2ef1a1da689e1c8d5e4d1e26604). Native emulator checks, including actual rotation, passed; see artifacts/SciBlox-1.5-native-checks.json.
+
+## Version 1.6 development build
+
+The current development build adds the reusable bilingual Bhell guide, matching
+gender-filtered blocky avatars, compact world controls, camera POV, and local
+classroom records. The follow camera damps position and aim together, without
+walking or idle camera bob. Guardian alerts use a small blue status label.
+
+In Settings (including the title-screen settings), choose an installed offline
+voice and use **Preview voice** before returning to play. English and Tagalog
+voice choices save separately. If only one compatible voice is installed, a
+different voice must first be installed through the phone's speech settings.
+Changing pitch or speed does not create a different voice. Consistent custom
+character narration across phones requires bundled recordings, which have not
+been supplied. All Bhell dialogue uses the shared calm narration hook and mute
+setting.
+
+After running `npm run android:debug`, install
+`android/app/build/outputs/apk/debug/app-debug.apk`. Local versioned installers
+may also be placed in `artifacts/`; they are excluded from Git. Confirm the
+actual APK date before updating a phone. Physical-device smoothness, offline
+voice availability, and two-phone classroom/co-op behavior still need device
+testing. The iOS source and its outstanding validation are described in
+[IOS.md](IOS.md).
+
+The verified version 1.6.1 development installer is
+`artifacts/SciBlox-1.6.1-debug.apk` (version code 8). Its signing certificate
+matches 1.5, so it can be installed as an update while retaining local progress.
+Installer SHA-256:
+`B6F82B7F9B3E819A558E68F140004DC330E764694EE7A111F3CD7C644C652031`.
+The installer and local validation JSON are excluded from Git; source code and
+these build instructions are included. This build has compile and focused
+browser coverage, rather than a completed physical-device test run.

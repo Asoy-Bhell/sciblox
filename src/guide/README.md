@@ -22,13 +22,13 @@ backgrounding, an open conversation, and held controls suspend the timer. Event
 handlers/timers are removed on unmount. Separate pre/post assessments retain
 their existing UI and do not receive guide hints.
 
-`useOfflineNarration` reuses the existing Android Narrator plugin and local
+`useOfflineNarration` reuses the existing native Narrator plugin and local
 recording map from `scene-media.js`, with browser localService voice fallback.
 It never selects a network voice. Voice availability depends on the installed
-offline language pack; captions remain complete without it. Voice plays from
-Hear Bhell and stops on Next, Skip, pause, background, language change, mute, or
+offline language pack; captions remain complete without it. Voice plays automatically when a caption appears; Hear Bhell replays it and stops on Next, Skip, pause, background, language change, mute, or
 unmount. Animated scenes controls sprite motion; Sound and Bhell's voice controls
-narration. Existing StoryDialog screens are unchanged.
+narration. Existing StoryDialog screens now use this same narration hook, so
+voice choice, neutral pitch, mute, and automatic narration are consistent.
 
 Assets: `public/assets/bhell/{expression}.png`. There is no new runtime
 dependency. Preview screenshots are written by `tests/guide-npc.spec.js` to

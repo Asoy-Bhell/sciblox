@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 import {EMPTY,preparationPlan} from '../src/journey-state.js';
-import {finishStationTest,openActivity} from './activity-helpers.js';
+import {finishStationTest,openActivity,dismissGuide} from './activity-helpers.js';
 import {EGG_QUESTIONS} from '../src/journey-data.js';
 
 test.use({hasTouch:true});
@@ -78,7 +78,7 @@ test('rendered egg can be ray-picked and accessible controls preserve collection
  await page.locator('.egg-question .answers button').nth(EGG_QUESTIONS[0][0].answer).click();await page.getByRole('button',{name:'Submit answer',exact:true}).click();
  await expect(world.getByRole('button',{name:'Open Common egg',exact:true})).toBeDisabled();
  expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('sciblox-v1')).run.collected)).toEqual([0]);
- await moveTo(page,82,66);
+ await dismissGuide(page,{expected:true});await moveTo(page,82,66);
  await world.getByRole('button',{name:'Open Rare egg',exact:true}).click();
  await expect(page.locator('.egg-question')).toBeVisible();
 });

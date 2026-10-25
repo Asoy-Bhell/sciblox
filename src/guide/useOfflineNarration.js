@@ -7,7 +7,9 @@ const unavailable={en:'Offline voice is unavailable on this device. Follow Bhell
 
 // Shares the existing Android Narrator plugin, local recordings, and browser
 // localService voices. No network voice or external audio URL is accepted.
-export default function useOfflineNarration({sound=true,language='en',sceneKey}){
+export default function useOfflineNarration({sound=true,language='en',sceneKey,voiceName:chosenVoice}){
+  let savedVoice='';try{savedVoice=JSON.parse(localStorage.getItem('sciblox-v1'))?.settings?.voiceByLanguage?.[language]||''}catch{}
+  const voiceName=chosenVoice??savedVoice;
   const [speaking,setSpeaking]=useState(false),[status,setStatus]=useState('');
   const request=useRef(0),audio=useRef(null),mounted=useRef(true),speech=useRef(null);
   const stop=useCallback(()=>{
@@ -18,7 +20,7 @@ export default function useOfflineNarration({sound=true,language='en',sceneKey})
     if(mounted.current)setSpeaking(false);
   },[]);
   useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;stop()}},[stop]);
-  useEffect(()=>{stop();setStatus('')},[sceneKey,sound,language,stop]);
+  useEffect(()=>{stop();setStatus('')},[sceneKey,sound,language,voiceName,stop]);
   useEffect(()=>{
     if(!nativeMobile)return;
     let disposed=false,handle;
@@ -42,21 +44,21 @@ export default function useOfflineNarration({sound=true,language='en',sceneKey})
       try{await player.play();if(valid())setSpeaking(true);else player.pause();return}catch{if(!valid())return}
     }
     if(nativeMobile){
-      try{const result=await Narrator.speak({text,language});if(valid()){setSpeaking(!!result.spoken);if(!result.spoken)fail()}}
+      try{const result=await Narrator.speak({text,language,voiceName});if(valid()){setSpeaking(!!result.spoken);if(!result.spoken)fail()}}
       catch{fail()}
       return;
     }
     const synth=window.speechSynthesis;
-    const voice=synth?.getVoices().filter(v=>v.localService&&(language==='tl'?/^(tl|fil)(-|$)/i.test(v.lang):/^en(-|$)/i.test(v.lang)))
-      .sort((a,b)=>Number(/female|woman|zira|samantha|susan|hazel|jenny/i.test(b.name))-Number(/female|woman|zira|samantha|susan|hazel|jenny/i.test(a.name)))[0];
+    const voices=synth?.getVoices().filter(v=>v.localService&&(language==='tl'?/^(tl|fil)(-|$)/i.test(v.lang):/^en(-|$)/i.test(v.lang)))||[];
+    const voice=voices.find(v=>v.name===voiceName)||voices.sort((a,b)=>Number(/female|woman|zira|samantha|susan|hazel|jenny/i.test(b.name))-Number(/female|woman|zira|samantha|susan|hazel|jenny/i.test(a.name))||a.name.localeCompare(b.name))[0];
     if(!voice){fail();return}
     try{
       const utterance=new SpeechSynthesisUtterance(text);speech.current=utterance;
-      utterance.voice=voice;utterance.lang=voice.lang;utterance.rate=.94;utterance.pitch=1.04;
+      utterance.voice=voice;utterance.lang=voice.lang;utterance.rate=.9;utterance.pitch=1;
       utterance.onstart=()=>{if(valid())setSpeaking(true)};
       utterance.onend=()=>{if(valid())setSpeaking(false)};utterance.onerror=fail;
       synth.speak(utterance);
     }catch{fail()}
-  },[language,sound,stop]);
+  },[language,sound,stop,voiceName]);
   return {speak,stop,speaking,status};
 }

@@ -89,3 +89,49 @@ A full session on two physical Android phones connected through a hotspot remain
 Latest screenshots: artifacts/previews/v1.5. Native verification report: artifacts/SciBlox-1.5-native-checks.json. Physical Samsung A16 5G / Huawei P40 Pro hotspot and graphics testing remains a release step. Publisher signing and Play Store submission are separate from this debug build.
 
 Version 1.5 final verification: 39 state/genetics/multiplayer/model/localization checks and all 29 browser scenarios passed across the full run and focused reruns. Native Android checks passed for actual landscape world/activity and portrait test/reviewer rotation, Male/Female selection, Tagalog guidance and spoken narration, native saved answers, local TCP protocol handshake, bundled assets, and no JavaScript exceptions. The debug certificate matches 1.4; APK metadata and checksum are in artifacts/SciBlox-1.5-validation.json. No physical two-phone test or Play Store publication is claimed.
+
+## Version 1.6 development changes
+
+- `GuideNPC` loads five bundled Bhell expression PNGs and eight bilingual
+  station JSON files. Intro, wrong-answer process hints, correct feedback,
+  twenty-second idle nudges, and level-up scenes support Next/Skip, captions,
+  animation settings, automatic offline speech, and saved mute.
+- Gender filters four unnamed male or four unnamed female choices. Portraits
+  are cached renders of the selected playable rig. Following user feedback,
+  human avatars now use original cuboid geometry rather than the rounded face.
+  Existing save IDs, names, and progress remain intact; Bhell's guide art is separate.
+- Left touch joystick, right jump/talk controls, compact HUD, first/third-person
+  POV, and deliberate camera drags replace large world controls. Camera aim
+  and position use identical damping. Tiny pointer movement does not rotate
+  the view; intentional drags do not open portals or eggs. Blocky characters
+  have no idle or walking body sway. Chase pulsing and the large red banner are removed.
+- Egg answers require a selected choice followed by Submit; opening an egg
+  does not award it or reveal an answer. Three-reviewer limits still persist.
+- Every Bhell dialogue screen now shares the offline narration hook. The old
+  higher-pitched StoryDialog path is removed. Native/browser voice enumeration
+  exposes only compatible installed voices; a selection can be previewed and
+  saved independently for English and Tagalog. Rate is 0.90 with neutral pitch.
+  Voice identity and quality depend on installed packs; no branded voice is copied.
+- Classroom mode stores each learner's own pre/post scores, completion, and XP.
+  Teacher records are ranked by completed stations, post-test mean, then XP.
+  Initial local address/code pairing is required; queued revisions retry while
+  the teacher's foreground app is reachable. Receiver acknowledgement follows
+  persistent storage, and repeated revisions do not create duplicate learners.
+  CSV export preserves missing results as missing rather than zero.
+- Co-op shares world challenges and movement. Guest assessment answers and
+  scores stay personal and are omitted from shared snapshots. Local profile
+  and language choices remain independent of the host.
+- iOS project source includes orientation, speech, classroom, and LAN co-op
+  bridges with manual address pairing and a privacy manifest. It has not been
+  compiled on this Windows workstation. Xcode and physical-device validation
+  remain required; no iOS binary or cross-device performance guarantee is claimed.
+
+Version 1.6.1 verification: fifty state/model/guide/classroom/co-op/localization/
+camera checks passed. Twenty-seven focused browser scenarios passed against
+production previews, including all three labs and fusion. Five phone/control/
+voice scenarios were repeated after the final timer and localized-label fixes.
+The Android debug build (version 1.6.1, code 8) and iOS asset/plugin sync passed.
+The Android signing certificate matches the prior debug build. Physical-phone
+smoothness, native voice selection, two-device classroom/co-op, and Xcode
+compilation remain unverified for this version. See
+`tests/native-upgrade-smoke.mjs` for the prepared native bridge/sync checks.

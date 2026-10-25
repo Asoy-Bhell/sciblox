@@ -1,10 +1,10 @@
 {
   "name": "sciblox",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "An offline educational heredity adventure for Android and iOS",
   "main": "index.js",
   "scripts": {
-    "test": "node --test tests/state.test.mjs tests/local-multiplayer.test.mjs tests/three-models.test.mjs tests/station-upgrade.test.mjs tests/i18n.test.mjs tests/guide.test.mjs tests/classroom-coop.test.mjs && playwright test",
+    "test": "node --test tests/state.test.mjs tests/local-multiplayer.test.mjs tests/three-models.test.mjs tests/station-upgrade.test.mjs tests/i18n.test.mjs tests/guide.test.mjs tests/classroom-coop.test.mjs tests/camera-stability.test.mjs && playwright test",
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "android:sync": "npm run build && cap sync android",
@@ -12,7 +12,8 @@
     "android:debug": "npm run android:sync && node scripts/android-build.mjs debug",
     "android:bundle": "npm run android:sync && node scripts/android-build.mjs bundle",
     "ios:sync": "npm run build && cap sync ios",
-    "ios:open": "cap open ios"
+    "ios:open": "cap open ios",
+    "test:serve": "npm run build && vite preview --host 127.0.0.1 --port 4173 --strictPort"
   },
   "keywords": [],
   "author": "",

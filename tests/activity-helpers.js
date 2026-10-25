@@ -17,6 +17,17 @@ export async function savedProgress(page) {
   return page.evaluate(()=>JSON.parse(localStorage.getItem('sciblox-v1')));
 }
 
+// Guide feedback is a deliberate player step, including queued level-up cards.
+export async function dismissGuide(page,{expected=false}={}) {
+ const guide=page.locator('.guide-npc');
+ if(expected)await expect(guide).toBeVisible();
+ await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+ while(await guide.count()){
+  await guide.getByRole('button',{name:'Skip',exact:true}).click();
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+ }
+}
+
 export async function solveFamilyTree(page) {
   const workshop=page.locator('.family-workshop');
   const people=[['Grandfather','I','■'],['Grandmother','I','○'],['Father','II','■'],['Mother','II','○'],['Son','III','□'],['Daughter','III','●']];

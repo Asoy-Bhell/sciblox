@@ -1,7 +1,7 @@
 // localized-ui
 import {t,getLanguage} from './i18n';
 import React,{useEffect,useRef,useState} from 'react';
-import {Narrator} from './narrator';
+import useOfflineNarration from './guide/useOfflineNarration';
 import {nativeMobile} from './mobile';
 import {Volume2} from 'lucide-react';
 import {BHELL_MEDIA,localMedia} from './scene-media';
@@ -14,20 +14,12 @@ export function AnimatedCharacter({state='idle',size=88,facing='right',className
 
 export function StoryDialog({text,speaker='Bhell',motion=true,sound=true,scene=0,icon}){
  text=t(text);
- const [visible,setVisible]=useState(motion?'':text),[speaking,setSpeaking]=useState(false),[voiceStatus,setVoiceStatus]=useState('');
- const timer=useRef(null),utterance=useRef(null),audio=useRef(null);
- useEffect(()=>{setVisible(motion?'':text);setSpeaking(false);setVoiceStatus('');if(motion){let length=0;timer.current=setInterval(()=>{length=Math.min(length+3,text.length);setVisible(text.slice(0,length));if(length===text.length)clearInterval(timer.current)},24)}return()=>{audio.current?.pause();clearInterval(timer.current);if(nativeMobile)Narrator.stop().catch(()=>{});else window.speechSynthesis?.cancel()}},[text,motion]);
- useEffect(()=>{if(!nativeMobile)return;const listener=Narrator.addListener('finished',()=>setSpeaking(false));return()=>{listener.then(l=>l.remove())}},[]);
- const narrate=async()=>{
-  setVisible(text);clearInterval(timer.current);setVoiceStatus('');
-  if(!sound){setVoiceStatus('Turn on sound effects in Settings to hear Bhell.');return}
-  const recording=localMedia(BHELL_MEDIA.dialogue[text]);
-  if(recording){try{audio.current?.pause();audio.current=new Audio(recording);audio.current.onended=()=>setSpeaking(false);audio.current.onerror=()=>{setSpeaking(false);setVoiceStatus('Follow Bhell’s captions. The recording could not play.')};await audio.current.play();setSpeaking(true);return}catch{setVoiceStatus('Recording unavailable; trying an installed voice.')}}
-  if(nativeMobile){try{const result=await Narrator.speak({text,language:getLanguage()});setSpeaking(!!result.spoken);if(!result.spoken)setVoiceStatus('Offline voice is unavailable on this device. Follow Bhell’s captions.')}catch{setVoiceStatus('Voice is unavailable. Bhell’s captions remain available.')}return}
-  const synth=window.speechSynthesis,voice=synth?.getVoices().filter(v=>v.localService&&(getLanguage()==='tl'?/^(tl|fil)(-|$)/i.test(v.lang):v.lang.toLowerCase().startsWith('en'))).sort((a,b)=>Number(/female|woman|zira|samantha|susan|hazel|jenny/i.test(b.name))-Number(/female|woman|zira|samantha|susan|hazel|jenny/i.test(a.name)))[0];
-  if(!voice){setVoiceStatus('An installed offline English voice is needed. Follow Bhell’s captions.');return}
-  synth.cancel();const speech=new SpeechSynthesisUtterance(text);utterance.current=speech;speech.voice=voice;speech.rate=.98;speech.pitch=1.18;speech.onstart=()=>setSpeaking(true);speech.onend=()=>setSpeaking(false);speech.onerror=()=>setSpeaking(false);synth.speak(speech);
- };
+ const [visible,setVisible]=useState(motion?'':text),timer=useRef(null);
+ const narration=useOfflineNarration({sound,language:getLanguage(),sceneKey:'story-'+scene+'-'+text});
+ const speaking=narration.speaking,voiceStatus=narration.status;
+ useEffect(()=>{setVisible(motion?'':text);if(motion){let length=0;timer.current=setInterval(()=>{length=Math.min(length+3,text.length);setVisible(text.slice(0,length));if(length===text.length)clearInterval(timer.current)},24)}return()=>clearInterval(timer.current)},[text,motion]);
+ useEffect(()=>{if(!sound)return;const task=setTimeout(()=>narration.speak(text),180);return()=>{clearTimeout(task);narration.stop()}},[text,sound,narration.speak,narration.stop]);
+ const narrate=()=>{setVisible(text);clearInterval(timer.current);if(speaking)narration.stop();else narration.speak(text)};
  const talking=speaking||visible.length<text.length;
  return <div className={'story-stage character-story scene-'+scene} key={scene}><span className="story-glow"/><div className={'bhell-portrait story-mia '+(talking&&motion?'bhell-talking':'')}><img src="/assets/bhell-guide.png" alt="Bhell, your science guide"/><span className="bhell-hand" aria-hidden="true">{t("✦")}</span></div>{t(icon&&<span className="story-topic">{t(icon)}</span>)}<div className="speech"><span className="speaker-name">{t(speaker)}<small>{t("YOUR SCIENCE EXPLORER")}</small></span><p aria-label={t(text)}><span className="dialogue-space" aria-hidden="true">{t(text)}</span><span className="dialogue-visible" aria-hidden="true">{t(visible||'…')}</span><span className="sr-only">{t(text)}</span></p><div className="speech-controls">{t(visible.length<text.length&&<button className="text-button" onClick={()=>{clearInterval(timer.current);setVisible(text)}}>{t("Show full dialogue")}</button>)}<button className="text-button" onClick={narrate}><Volume2 size={15}/>{t(" Hear Bhell")}</button></div>{t(voiceStatus&&<small className="voice-status" role="status">{t(voiceStatus)}</small>)}</div><span className="story-land">{t("🌱 🌼 🌿")}</span></div>
 }
